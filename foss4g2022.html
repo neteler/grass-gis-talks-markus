@@ -303,15 +303,15 @@
             <small>Single window interface as the default.</small>
         </li>
         -->
-    </ul>
-    <p><small>
-        major.minor.micro &ndash; semantic versioning:<br>
-        &ndash; micro (x.y.z) brings <b>fixes</b>,<br>
-        &ndash; minor (x.y) brings <b>features</b>,<br>
-        &ndash; major (x) brings <b>features and possibly backward incompatible changes</b>
-    </small></p>
-    <br>
-    <img src="img/splash_screen.png" alt="GRASS GIS splash screen" class="stretch">
+	<ul>
+          <li> major.minor.micro &ndash; semantic versioning:</small></li>
+           <ul>
+              <li> <small>micro (x.y.z) brings <b>fixes</b>,</small></li>
+              <li> <small>minor (x.y) brings <b>features</b>,</small></li>
+              <li> <small>major (x) brings <b>features and possibly backward incompatible changes</b></small></li>
+          </ul>
+        </ul>
+    <img src="img/splash_screen.png" alt="GRASS GIS splash screen" width="70%">
 </section>
 
 <!--  Vero's version:
@@ -459,34 +459,19 @@
     <h2>New! Semantic Labels for Rasters</h2>
     <ul>
         <li>
-            attaches meaningful labels to raster maps
+            assigning meaningful labels to raster maps
             <small>(e.g., <code>S2_1</code> or <code>red</code>)</small>
             <ul>
                 <li>image classification can use sematic labels to identify bands</li>
                 <li>different scenes can then be classified if semantic labels are the same</li>
             </ul>
         </li>
-        <li>
-            organize bands within one spatio-temporal dataset
-        </li>
-    </ul>
-    <br>
-    <img src="img/band_references_scheme.png" alt="GRASS GIS and band reference metadata" class="stretch">
-    <p>by Maris Nartiss, Martin Landa, Markus Metz</p>
-</section>
-
-
-<section>
-    <h2>Raster band references and portable signature files</h2>
-    <ul>
-        <li>assign a band reference (semantic label) to any raster map</li>
-        <li>extended metadata for band reference</li>
-        <li>band references stored in classification signature files</li>
+        <li>organize bands within one spatio-temporal dataset</li>
         <li>signature files can be used for classification if band references match (raster values are semantically equal)</li>
     </ul>
     <br>
     <img src="img/band_references_scheme.png" alt="GRASS GIS and semantic labels" class="stretch">
-    <p>by Māris Nartišs and Martin Landa</p>
+    <p>by Maris Nartiss, Martin Landa, Markus Metz</p>
 </section>
 
 
@@ -537,12 +522,13 @@
                 <li>r.mfilter</li>
                 <li>r.slope.aspect</li>
             </ul>
-            <p> + benchmarking library</p>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ benchmarking library</p>
         </div>
         <div class="col">
-            <img src="img/gsoc/openmp.png" alt="GRASS GIS and openMP">
+            <img src="img/gsoc/openmp.png" alt="GRASS GIS and openMP" width="70%">
         </div>
     </div>
+    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
     <p>Available in 8.2+</p>
     <aside class="notes">
         <ul>
@@ -551,21 +537,10 @@
             <li>Supported on all platforms, provided GRASS is compiled with OpenMP</li>
         </ul>
     </aside>
-    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
 </section>
 
-<section>
-    <h2>Speed Improvements: Multi-threading with OpenMP</h2>
-    <ul>
-        <li>More tasks done in parallel in the same tool</li>
-        <li><code>nprocs</code> specifies number of cores (processes, threads)</li>
-        <li><code>memory</code> specifies RAM in MB</li>
-        <li><em>Performance</em> section in documentation describes the behavior</li>
-    </ul>
-    <img src="img/openmp_r_series_section.png" alt="GRASS GIS and r.series openMP benchmarking" class="stretch">
-    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
-</section>
 
+<!-- other variant
 <section>
     <h2>New core modules using OpenMP parallelization</h2>
     <ul>
@@ -578,12 +553,23 @@
     <p>
         <img src="img/r_series_average_explanation.png" alt="GRASS GIS and r.series openMP benchmarking 2" style="height: 7ex">
     </p>
-<!--
-    <img src="img/openmp_r_series.png" alt="GRASS GIS and r.series openMP benchmarking" class="stretch">
--->
     <p>by Aaron Saw Min Sern</p>
 </section>
+-->
 
+<!-- too much for FOSS4G 2022
+<section>
+    <h2>Speed Improvements: Multi-threading with OpenMP</h2>
+    <ul>
+        <li>More tasks done in parallel in the same tool</li>
+        <li><code>nprocs</code> specifies number of cores (processes, threads)</li>
+        <li><code>memory</code> specifies RAM in MB</li>
+        <li><em>Performance</em> section in documentation describes the behavior</li>
+    </ul>
+    <img src="img/openmp_r_series_section.png" alt="GRASS GIS and r.series openMP benchmarking" class="stretch">
+    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
+</section>
+-->
 
 <section>
     <h2>More parallel tools</h2>
@@ -600,7 +586,7 @@
             r.sun.daily, r.in.usgs,
             r.mapcalc.tiled, t.rast.what.aggr,
             r.connectivity.corridors, r.viewshed.exposure,
-            and 14 more
+            and <b>14</b> more
             <!-- 20 total -->
             </small>
         </li>
@@ -749,25 +735,14 @@
 
 
 <section>
-    <h2>Single-Window GUI by Linda Kladivova</h2>
+    <h2>Single-Window GUI</h2>
     <h3>Integration of results from Google Summer of Code 2021</h3>
     <img src="img/gsoc/proposal3.png" alt="GRASS GIS and single window GUI" class="stretch">
     <p>
-        Code refactoring to enable Single-Window GUI with dockable widgets.
+        One GUI window with optimized layout with dockable widgets.
     </p>
-    <p>Available in 8.2+</p>
-</section>
-
-
-<section>
-    <h2>Single-Window GUI</h2>
-    <p>
-        One window with optimized layout.
-    </p>
-    <img src="img/single_window_8.2_dark.png" alt="GRASS GIS and dark theme" class="stretch">
-    <p>Opt-in preview in 8.2: <em>Settings &gt; Preferences &gt; General</em></p>
     <p>by Linda Kladivova</p>
-    <p>Available in 8.2+</p>
+    <p>Available in 8.2+: <em>Settings &gt; Preferences &gt; General</em></p>
 </section>
 
 
