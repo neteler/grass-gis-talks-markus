@@ -243,27 +243,22 @@
 
 
 <section>
-    <h2>Land use classification and monitoring of land use changes</h2>
-    <ul>
-        <li>LULC data from Sentinel-2 with 6 classes,<br>
-            for 2016, 2019, 2020, 2021 (<a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=incora">GNOS search</a>)</li>
-        <li>Change detection between different maps</li>
-        <li>"incora" mFUND project (FKZ: 19F2079C)</li>
-    </ul>
-    <img src="img/incora_GNOS.png" alt="GNOS: incora" width="65%">
+    <h2>Germany land-cover mapping based on Sentinel-2 data and monitoring of land use changes</h2>
+    <em>r.incora</em>: a GRASS GIS addon to derive LULC and change detection maps from S2 incl. creation of training points from rule sets.
+    <br>
+    <img src="img/incora_germany_2019_incl_subset.png" alt="GRASS GIS and LULC classification" class="stretch"><br>
+    <small>For details, see <a href="https://www.mundialis.de/en/germany-2020-land-cover-based-on-sentinel-2-data/">this</a> blog post. Funding: "incora" mFUND project (FKZ: 19F2079C)</small>
 </section>
 
 
 <section>
-    <h2>Germany land-cover mapping based on Sentinel-2 data</h2>
-    <h6>GRASS modules in use (excerpt):</h6>
+    <h2>Germany land-cover mapping based on Sentinel-2 data and monitoring of land use changes</h2>
     <ul>
-        <b><em><font size="3"><li>i.vi, t.rast.series, r.learn.ml2, r.change.info</li>
-           </font></b></em>
+        <li>LULC data from Sentinel-2 with 6 classes,<br>
+            for 2016, 2019, 2020, 2021 (<a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=incora">GNOS search</a>)</li>
+        <li>Change detection between different maps</li>
     </ul>
-    <br>
-    <img src="img/incora_germany_2019_incl_subset.png" alt="GRASS GIS and LULC classification" class="stretch"><br>
-    <small>For details, follow <a href="https://www.mundialis.de/en/germany-2020-land-cover-based-on-sentinel-2-data/">this</a> blog post.</small>
+    <img src="img/incora_GNOS.png" alt="GNOS: incora" width="65%">
 </section>
 
 
@@ -329,6 +324,18 @@
 </ul>
 </section>
 
+<section>
+  <h2>GRASS Community Meeting Prague 2023</h2>
+  Work and party: 40 years of GRASS GIS!
+    <img src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" class="stretch">
+<!--
+  <div style="position:relative; width:800px; height:600px; margin:0 auto;">
+    <img class="fragment fade-out" data-fragment-index="0" src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" style="position:absolute;top:0;left:0;" width="100%">
+    <img class="fragment fade-in" data-fragment-index="0" width="100%"src="img/grass40_collage_party.jpg" alt="GRASS meeting in Prague (party)" style="position:absolute;top:0;left:0;">
+  </div>
+-->
+</section>
+
 
 <section id="GRASS GIS generalities"  data-background-image="img/grass_template.png"
          data-background-position="bottom"
@@ -391,8 +398,10 @@
 <section>
     <h2>actinia - QGIS plugin</h2>
     <ul>
-        <img src="img/actinia.png" alt="actinia logo" width="70px" style="float:right;pad-right:15px;">
-        <li>actinia connector: a QGIS plugin to control of actinia from QGIS (under development)</li>
+        <img src="img/actinia.png" alt="actinia logo" width="50px" style="float:right;pad-right:15px;">
+         actinia connector:<br>
+          a QGIS plugin to  control actinia from QGIS 
+          (under development) 
     </ul>
     <img src="img/actinia_qgis_plugin.jpg" alt="actinia - QGIS plugin" class="stretch">
     <small>by Anika Weinmann, &hellip;</small>
@@ -402,8 +411,8 @@
     <h2>actinia - leafmap</h2>
     <ul>
         <img src="img/leafmap_logo.png" alt="leafmap logo" width="70px" style="float:right;pad-right:15px;">
-        <li>Jupyter notebook: compute <br>
-        in actinia, visualize in <a href="https://leafmap.org/">leafmap</a>&nbsp;&nbsp;&nbsp; </li>
+        Jupyter notebook: <br>
+        compute in actinia, visualize in <a href="https://leafmap.org/">leafmap</a>
     </ul>
     <img src="img/actinia_leafmap.jpg" alt="actinia - leafmap" class="stretch"><br>
     <small>by Qiusheng Wu, Markus Neteler, &hellip;</small>
