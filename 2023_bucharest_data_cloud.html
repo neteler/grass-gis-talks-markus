@@ -136,7 +136,7 @@
 <!-- ################# CONTENT ################# -->
 
 <section>
-    <h1>Innovations in Open Data Products<br>and Cloud-based Geoprocessing</h1>
+    <h1>Innovations in<br> Open Data Products and<br> Cloud-based Geoprocessing</h1>
     <p style="margin-top: 0.5em">
         <a href="https://www.mundialis.de/en/neteler/">Markus Neteler</a>
         <br>
@@ -197,17 +197,39 @@
 -->
 
 <section data-markdown
+         data-background-image="img/meme_little_time_imgflip_border.png"
+         data-background-opacity="0.7">
+    <textarea data-template>
+    <table border=0>
+        <tr><td width="33%"></td>
+        <td>
+            <h2>Nowadays, there is an abundance of open data</h2>
+            
+            Still, data remains partially inaccessible to companies, governmental institutions and citizens, due to:
+            <ul>
+                <li>special data formats:
+                <small>think "raw data", i.e., Sentinel-1/2/3/5 satellite data, Lidar point clouds, Copernicus Climate Data Store, ...)</small></li>
+                <li>lack of experience with data processing and analytical methods</li>
+                <li>well, the sheer size!<br><br></li>
+            </ul>
+        </td>
+        </tr></table>
+    </textarea>
+</section>
+
+
+<section data-markdown
          data-background-image="https://www.mundialis.de/wordpress/wp-content/uploads/2022/08/sentinel2a_kufra.jpg"
          data-background-opacity="0.3">
     <textarea data-template>
-    <h2>Motivation: Informed decisions through data</h2>
+    <h2>Our goal:<br><br> make open data truly accessible in order to support informed decisions</h2>
     <ul>
-        <li>Strongly growing pool of free "raw data" (Sentinel satellite data, Lidar point clouds, Copernicus Climate Data Store, ...)</li>
-        <li>Processing is complex due to volume, specific data formats, etc.</li>
-        <li>mundialis develops scientifically based analysis methods in the context of customer requirements</li>
+        <li>distill information from abundance of data</li>
+        <li>processing remains complex (projections, formats, etc)</li>
+        <li>put the science into all</li>
     </ul>
     <br><br>
-    <h2>Processing</h2>
+    <h2>Processing tools</h2>
     <ul>
         <li>GDAL, GRASS GIS, QGIS</li>
         <li>actinia (cloud based geoprocessing engine)</li>
@@ -215,36 +237,51 @@
     </textarea>
 </section>
 
+<section>
+    <h1>New open data sets, freshly produced</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
 
+
+<!--  TODO: SRTM vs NASADEM vs COP-DSM -->
 <section data-markdown
-         data-background-image="img/jupyter_openNRW_crop.jpg"
+         data-background-image="img/cop_dem30m_shaded_berlin.png"
          data-background-opacity="0.2">
-  <textarea data-template>
-  <h2>Software offerings by mundialis</h2>
-  <br><br>
-  <h3>Software (yes, it's FOSS!)</h3>
+    <textarea data-template>
+    <h2><a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?resultType=details&sortBy=relevance&any=Copernicus%20DEM&from=1&to=20&fast=index&_content_type=json">Copernicus DEM (COP-DEM) GLO-30:</a><br>
+    Global Elevation Data</h2>
+    <img src="img/cop-dem_30m_south_america.jpg" alt="COP-DEM 30 South America" width="40%">
+    <!-- <img src="img/cop_dem30m_shaded_berlin.png" alt="COP-DEM 30 shaded relief Berlin" class="stretch"> -->
+    <h3>Prepared by mundialis in a GIS-friendly way</h3>
     <ul>
-        <li> <a href="https://github.com/mundialis/">https://github.com/mundialis/</a> (> 60 repos)</li>
-        <li> <a href="https://github.com/actinia-org/">https://github.com/actinia-org/</a> (> 20 repos)</li>
+        <li>Rectangular pixels -> square pixels</li>
+        <li>Delivery in COG format, via <a href="https://data.mundialis.de/">data.mundialis.de</a></li>
+        <li>(cut to Europa)</li>
     </ul>
-  <br><br><br>
-  <h3>Open Data</h3>
-    <ul>
-    <li>Data (COG, GPKG) &amp; metadata at <a href="https://data.mundialis.de">https://data.mundialis.de</a></li>
-    <li>Datasets also on <a href="https://zenodo.org/search?page=1&size=200&q=mundialis">https://zenodo.org</a> (CITATION.cff API upload)</li>
-    </ul>
-  <br><br><br>
-  <h3>Tutorials</h3>
-    <ul>
-    <li>Jupyter notebooks at GitHub: <a href="https://github.com/actinia-org/actinia-jupyter/">actinia</a> &amp; <a href="https://github.com/mundialis/">mundialis</a></li>
-  </ul>
-  </textarea>
+<!--
+      Quellen in der Produktion von COP-DEM: Airbus WorldDEM infilled on a local basis with the following DEMs: ASTER, SRTM90, SRTM30, SRTM30plus, GMTED2010, TerraSAR-X Radargrammetric DEM, ALOS World 3D-30m.
+-->
+    </textarea>
 </section>
 
 
 <section>
+  <h2>Climate data time series in higher resolution</h2>
+    <img src="img/era5_screenhot_t2m_min.png" alt=ERA5 T2m min daily" class="stretch">
+  <ul>
+    <li>Time series of continental ERA5-Land raster data, spatially improved <a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=ERA5">from 9 km resolution to 1 km</a> using CHELSA data:</li>
+    <ul>
+        <li>Temperature (2000 - 2021)</li>
+        <li>Precipitation (2000 - 2021)</li>
+        <li>Relative humidity (2000 - 2021) - after <it>Wright 1997</it></li>
+    </ul>
+    <li>Motivation: Calculation of heat island risk, derivation of regional trends, human well-being (thermoregulation of the body).</li>
+</ul>
+</section>
+
+<section>
     <h2>Germany land-cover mapping based on Sentinel-2 data and monitoring of land use changes</h2>
-    <em>r.incora</em>: a GRASS GIS addon to derive LULC and change detection maps from S2 incl. creation of training points from rule sets.
+    LULC and change detection maps from S2, with <em>r.incora</em>, a related GRASS GIS addon incl. creation of training points from rule sets.
     <br>
     <img src="img/incora_germany_2019_incl_subset.png" alt="GRASS GIS and LULC classification" class="stretch"><br>
     <small>For details, see <a href="https://www.mundialis.de/en/germany-2020-land-cover-based-on-sentinel-2-data/">this</a> blog post. Funding: "incora" mFUND project (FKZ: 19F2079C)</small>
@@ -269,12 +306,11 @@
         <li>For (urban) planning purposes it is essential to have accurate data of the current building stock.</li>
         <ul>
             <li>The data sets of the "house perimeters" are not available as open data in all federal states.</li>
-            <li>im: automated extraction from aerial photographs and possibly other current sources (LiDAR, nDSM, ...)</li>
+            <li>Automated extraction from aerial photographs and possibly other current sources (LiDAR, nDSM, ...)</li>
+            <li>Extraction of buildings and green roofs</li>
         </ul>
-        <li>Extraction of buildings and green roofs</li>
-        <ul>
-          <li>Software now available on GitHub (<a href="https://github.com/mundialis/rvr_interface">https://github.com/mundialis/rvr_interface</a>)</li>
-        </ul>
+    <li>Software now available on GitHub <br>
+    (<a href="https://github.com/mundialis/rvr_interface">https://github.com/mundialis/rvr_interface</a>)</li>
     </ul>
 </section>
 
@@ -284,56 +320,15 @@
     <img src="img/nrw_bahn_einzelbaumerkennung.png" alt="Einzelbaumerkennung" class="stretch">
     <ul>
         <li>Relevance: see urban climate, traffic safety obligation, biomass estimates, ...</li>
+       <li>Software now available on GitHub <br>
+      (<a href="https://github.com/mundialis/rvr_interface">https://github.com/mundialis/rvr_interface</a>)</li>
     </ul>
-</section>
-
-<!--  TODO: SRTM vs NASADEM vs COP-DSM -->
-
-<section data-markdown
-         data-background-image="img/cop_dem30m_shaded_berlin.png"
-         data-background-opacity="0.3">
-    <textarea data-template>
-    <h2><a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?resultType=details&sortBy=relevance&any=Copernicus%20DEM&from=1&to=20&fast=index&_content_type=json">Copernicus DEM (COP-DEM) GLO-30:</a><br>
-    Global Elevation Data</h2>
-    <img src="img/cop-dem_30m_south_america.jpg" alt="COP-DEM 30 South America" width="40%">
-    <!-- <img src="img/cop_dem30m_shaded_berlin.png" alt="COP-DEM 30 shaded relief Berlin" class="stretch"> -->
-    <h3>Prepared by mundialis in a GIS-friendly way</h3>
-    <ul>
-        <li>Rectangular pixels -> square pixels</li>
-        <li>Delivery in COG format</li>
-        <li>(cut to Europa)</li>
-    </ul>
-<!--
-      Quellen in der Produktion von COP-DEM: Airbus WorldDEM infilled on a local basis with the following DEMs: ASTER, SRTM90, SRTM30, SRTM30plus, GMTED2010, TerraSAR-X Radargrammetric DEM, ALOS World 3D-30m.
--->
-    </textarea>
 </section>
 
 
 <section>
-  <h2>Climate data time series in higher resolution</h2>
-    <img src="img/era5_screenhot_t2m_min.png" alt=ERA5 T2m min daily" class="stretch">
-  <ul>
-    <li>Time series of continental <a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=ERA5">ERA5-Land</a> raster data that we have improved from 9 km resolution to 1 km using CHELSA data:</li>
-    <ul>
-        <li>Temperature (2000 - 2021)</li>
-        <li>Precipitation (2000 - 2021)</li>
-        <li>Relative humidity (2000 - 2021) - after <it>Wright 1997</it></li>
-    </ul>
-    <li>Motivation: Calculation of heat island risk, derivation of regional trends, human well-being (thermoregulation of the body).</li>
-</ul>
-</section>
-
-<section>
-  <h2>GRASS Community Meeting Prague 2023</h2>
-  Work and party: 40 years of GRASS GIS!
-    <img src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" class="stretch">
-<!--
-  <div style="position:relative; width:800px; height:600px; margin:0 auto;">
-    <img class="fragment fade-out" data-fragment-index="0" src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" style="position:absolute;top:0;left:0;" width="100%">
-    <img class="fragment fade-in" data-fragment-index="0" width="100%"src="img/grass40_collage_party.jpg" alt="GRASS meeting in Prague (party)" style="position:absolute;top:0;left:0;">
-  </div>
--->
+    <h1>The GIS army knife - developed by the community: GRASS GIS</h1>
+    <i class="fa fa-rocket fa-4x"></i>
 </section>
 
 
@@ -357,8 +352,14 @@
 </section>
 
 <section>
-    <h1>Exciting new features in GRASS 8.2+</h1>
-    <i class="fa fa-rocket fa-4x"></i>
+    <h2>GRASS GIS: All-in-one software suite</h2>
+        <ul>
+            <li>All matured tools available right away
+            <li>Download of experimental tools possible
+            <li>Network analysis, hydrology, remote sensing, vector topology, time series, &hellip;
+        </ul>
+        <br>
+        <img src="img/grass821.png" alt="GRASS GIS 8.2.1" class="stretch">
 </section>
 
 
@@ -378,6 +379,53 @@
         <a href="https://tinyurl.com/grass-rc2">tinyurl.com/grass-rc2</a> (run in Binder)
     </p>
     <p>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</p>
+</section>
+
+
+<section>
+    <h2>Boxplots in space-time raster data set</h2>
+    <em>t.rast.boxplot</em> draws boxplots of the raster in a
+    space-time raster data set.
+    <br>
+    <img src="img/t_rast_boxplot_02.png" alt="t.rast.boxplot example"  width="45%">
+    <img src="img/t_rast_boxplot_03.png" alt="t.rast.boxplot example"  width="45%">     <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/t.rast.boxplot.html">addon</a>
+      by Paulo van Breugel</p>
+</section>
+
+
+<section>
+  <h2>GRASS Community Meeting Prague 2023</h2>
+  Work and party: 40 years of GRASS GIS!
+    <img src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" class="stretch">
+<!--
+  <div style="position:relative; width:800px; height:600px; margin:0 auto;">
+    <img class="fragment fade-out" data-fragment-index="0" src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" style="position:absolute;top:0;left:0;" width="100%">
+    <img class="fragment fade-in" data-fragment-index="0" width="100%"src="img/grass40_collage_party.jpg" alt="GRASS meeting in Prague (party)" style="position:absolute;top:0;left:0;">
+  </div>
+-->
+</section>
+
+
+<section>
+    <h2>Code contributions</h2>
+    <br>
+    <h3>GRASS GIS development is GitHub-centered: core, addons, website</h3>
+    <ul>
+        <li>Fill bug reports or feature requests</li>
+        <li>All issues and PR's are publicly visible</li>
+        <li>Ask, comment, suggest also in Github <a href="https://github.com/OSGeo/grass/discussions">Discussions</a></li>
+        <li><em>"Fork me on <a href="https://github.com/OSGeo/grass">GitHub</a>"</em> and suggest changes or fix bugs via pull requests</li>
+        <li>Create your own addon! See this nice workshop for a guideline:
+            <a href="https://github.com/wenzeslaus/python-grass-addon">How to write a Python tool for GRASS</a>
+        </li>
+    </ul>
+    <img src="img/octocat.png" alt="GitHub logo" class="stretch">
+</section>
+
+
+<section>
+    <h1>Going cloud: actinia</h1>
+    <i class="fa fa-rocket fa-4x"></i>
 </section>
 
 
@@ -417,6 +465,33 @@
     <img src="img/actinia_leafmap.jpg" alt="actinia - leafmap" class="stretch"><br>
     <small>by Qiusheng Wu, Markus Neteler, &hellip;</small>
 </section>
+
+
+<section data-markdown
+         data-background-image="img/jupyter_openNRW_crop.jpg"
+         data-background-opacity="0.2">
+  <textarea data-template>
+  <h2>Software offerings by mundialis</h2>
+  <br><br>
+  <h3>Software (yes, it's FOSS!)</h3>
+    <ul>
+        <li> <a href="https://github.com/mundialis/">https://github.com/mundialis/</a> (> 60 repos)</li>
+        <li> <a href="https://github.com/actinia-org/">https://github.com/actinia-org/</a> (> 20 repos)</li>
+    </ul>
+  <br><br><br>
+  <h3>Open Data</h3>
+    <ul>
+    <li>Data (COG, GPKG) &amp; metadata at <a href="https://data.mundialis.de">https://data.mundialis.de</a></li>
+    <li>Datasets also on <a href="https://zenodo.org/search?page=1&size=200&q=mundialis">https://zenodo.org</a> (CITATION.cff API upload)</li>
+    </ul>
+  <br><br><br>
+  <h3>Tutorials</h3>
+    <ul>
+    <li>Jupyter notebooks at GitHub: <a href="https://github.com/actinia-org/actinia-jupyter/">actinia</a> &amp; <a href="https://github.com/mundialis/">mundialis</a></li>
+  </ul>
+  </textarea>
+</section>
+
 
 <section>
     <h1>Talk to us!</h1>
