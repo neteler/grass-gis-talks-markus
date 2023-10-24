@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>Innovations in Open Data Products and Cloud-based Geoprocessing</title>
+
+        <meta name="description" content="Innovations in Open Data Products and Cloud-based Geoprocessing">
+        <meta name="author" content="Markus Neteler und mundialis GmbH & Co. KG">
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="css/theme/osgeo.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+<!--        <link href="https://fonts.googleapis.com/css?family=Miriam+Libre" rel="stylesheet">-->
+<style>
+/* miriam-libre-regular - latin */
+@font-face {
+  font-family: 'Miriam Libre';
+  font-style: normal;
+  font-weight: 400;
+  src: url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Miriam Libre'), local('MiriamLibre-Regular'),
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.svg#MiriamLibre') format('svg'); /* Legacy iOS */
+}
+
+/* miriam-libre-700 - latin */
+@font-face {
+  font-family: 'Miriam Libre';
+  font-style: normal;
+  font-weight: 700;
+  src: url('lib/font/miriam-libre/miriam-libre-v1-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Miriam Libre Bold'), local('MiriamLibre-Bold'),
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.svg#MiriamLibre') format('svg'); /* Legacy iOS */
+}
+
+
+/* sintony-regular - latin */
+@font-face {
+  font-family: 'Sintony';
+  font-style: normal;
+  font-weight: 400;
+  src: url('lib/font/sintony/sintony-v4-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Sintony'),
+       url('lib/font/sintony/sintony-v4-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/sintony/sintony-v4-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/sintony/sintony-v4-latin-regular.svg#Sintony') format('svg'); /* Legacy iOS */
+}
+
+/* sintony-700 - latin */
+@font-face {
+  font-family: 'Sintony';
+  font-style: normal;
+  font-weight: 700;
+  src: url('lib/font/sintony/sintony-v4-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Sintony Bold'), local('Sintony-Bold'),
+       url('lib/font/sintony/sintony-v4-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/sintony/sintony-v4-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/sintony/sintony-v4-latin-700.svg#Sintony') format('svg'); /* Legacy iOS */
+}
+
+.reveal i.fa {
+    font-family:FontAwesome;
+    font-style: normal;
+}
+
+.reveal li > ul {
+    font-size: 85%;
+    line-height: 110%;
+  }
+
+.reveal small {
+  display: inline-block;
+  font-size: smaller;
+  line-height: 1.2em;
+  vertical-align: baseline;
+  margin: 0.1em; }
+
+.reveal small * {
+  vertical-align: baseline; }
+
+.reveal .credit {
+  font-size: small;
+  color: gray;
+  margin: 0.1em;
+}
+
+.reveal .right, .reveal .textimg > img, .reveal .textimg > video, .reveal .textimg > iframe, .reveal .imgtext > p, .reveal .imgtext > ul, .reveal .imgtext > ol, .reveal .imgtext > div {
+    float: right;
+    text-align: left;
+    max-width: 47%;
+}
+
+.reveal .left, .reveal .imgtext > img, .reveal .imgtext > video, .reveal .imgtext > iframe, .reveal .textimg > p, .reveal .textimg > ul, .reveal .textimg > ol, .reveal .textimg > div {
+    float: left;
+    text-align: left;
+    max-width: 47%;
+}
+</style>
+</head>
+
+<body>
+      <div class="reveal">
+      <div class="slides">
+
+<!-- ################# CONTENT ################# -->
+
+<section>
+    <h1>Innovations in<br> Open Data Products and<br> Cloud-based Geoprocessing</h1>
+    <p style="margin-top: 0.5em">
+        <a href="https://www.mundialis.de/en/neteler/">Markus Neteler</a>
+        <br>
+        &amp; mundialis GmbH &amp; Co. KG
+    </p>
+
+    <img src="img/mundialis_logo.png" alt="mundialis logo" width="20%">
+    <p><small><a href="Seminariile geo-spatial.org: București 2023">Seminariile geo-spatial.org: București 2023</a></small></p>
+    <p><small><a href="https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/2023_bucharest_data_cloud.html#/">https://github.com/neteler/grass-gis-talks-markus/</a></small></p>
+</section>
+
+<!--
+<section>
+    <h2>Über den Sprecher...</h2>
+    <br>
+    <ul>
+        <li> Mitbegründer und Senior Consultant bei mundialis, Bonn (DE)</li>
+        <img class="bio-img" src="img/markus_round.png" alt="Pic of Markus Neteler">
+        <li> Seit 2016 in Bonn, Deutschland @ mundialis</li>
+        <li> Jahrelang als Wissenschaftler in Trento, Italien, gelebt</li>
+        <li> Seit 1997 aktiv im GRASS GIS Projekt</li>
+        <li> Mitbegründer von OSGeo, GFOSS.it und FOSSGIS e.V.</li>
+    </ul>
+    <p align="right" style="font-size:18px"><a href="https://www.mundialis.de/neteler/">https://www.mundialis.de/neteler/</a></p>
+</section>
+-->
+
+<section>
+    <h2>About the presenter...</h2>
+    <br>
+    <ul>
+        <li>Co-founder and senior consultant at mundialis, Bonn (DE)</li>
+        <img class="bio-img" src="img/markus_round.png" alt="Pic of Markus Neteler">
+        <li>Years as a researcher in Trento, Italy</li>
+        <li>Since 2016 in Bonn, Germany @ mundialis</li>
+        <li>Since 1997 active in the <a href="https://grass.osgeo.org/">GRASS GIS</a> project</li>
+        <li> Co-founder of <a href="https://www.osgeo.org/">OSGeo</a>, GFOSS.it and FOSSGIS e.V.</li>
+    </ul>
+    <p align="right" style="font-size:18px"><a href="https://www.mundialis.de/neteler/">https://www.mundialis.de/neteler/</a></p>
+</section>
+
+<!--
+<section data-markdown
+         data-background-image="https://grass.osgeo.org/images/logos/banner.jpg"
+         data-background-opacity="0.6">
+    <textarea data-template>
+    ## Overview of this talk
+        - For newcomers: which GRASS GIS?
+        - A better GUI experience in GRASS 8.2+
+        - Interfaces to other software
+        - Exciting new features in GRASS 8.2+
+        - GRASS GIS is ready for the cloud
+        - Community contributions
+        - Get involved
+    </textarea>
+</section>
+
+-->
+
+<section data-markdown
+         data-background-image="img/meme_little_time_imgflip_border.png"
+         data-background-opacity="0.7">
+    <textarea data-template>
+    <table border=0>
+        <tr><td width="33%"></td>
+        <td>
+            <h2>Nowadays, there is an abundance of open data</h2>
+            
+            Still, data remains partially inaccessible to companies, governmental institutions and citizens, due to:
+            <ul>
+                <li>special data formats:
+                <small>think "raw data", i.e., Sentinel-1/2/3/5 satellite data, Lidar point clouds, Copernicus Climate Data Store, ...)</small></li>
+                <li>lack of experience with data processing and analytical methods</li>
+                <li>well, the sheer size!<br><br></li>
+            </ul>
+        </td>
+        </tr></table>
+    </textarea>
+</section>
+
+
+<section data-markdown
+         data-background-image="https://www.mundialis.de/wordpress/wp-content/uploads/2022/08/sentinel2a_kufra.jpg"
+         data-background-opacity="0.3">
+    <textarea data-template>
+    <h2>Our goal:<br><br> make open data truly accessible in order to support informed decisions</h2>
+    <ul>
+        <li>distill information from abundance of data</li>
+        <li>processing remains complex (projections, formats, etc)</li>
+        <li>put the science into all</li>
+    </ul>
+    <br><br>
+    <h2>Processing tools</h2>
+    <ul>
+        <li>GDAL, GRASS GIS, QGIS</li>
+        <li>actinia (cloud based geoprocessing engine)</li>
+    </ul>
+    </textarea>
+</section>
+
+<section>
+    <h1>New open data sets, freshly produced</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
+
+
+<!--  TODO: SRTM vs NASADEM vs COP-DSM -->
+<section data-markdown
+         data-background-image="img/cop_dem30m_shaded_berlin.png"
+         data-background-opacity="0.2">
+    <textarea data-template>
+    <h2><a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?resultType=details&sortBy=relevance&any=Copernicus%20DEM&from=1&to=20&fast=index&_content_type=json">Copernicus DEM (COP-DEM) GLO-30:</a><br>
+    Global Elevation Data</h2>
+    <img src="img/cop-dem_30m_south_america.jpg" alt="COP-DEM 30 South America" width="40%">
+    <!-- <img src="img/cop_dem30m_shaded_berlin.png" alt="COP-DEM 30 shaded relief Berlin" class="stretch"> -->
+    <h3>Prepared by mundialis in a GIS-friendly way</h3>
+    <ul>
+        <li>Rectangular pixels -> square pixels</li>
+        <li>Delivery in COG format, via <a href="https://data.mundialis.de/">data.mundialis.de</a></li>
+        <li>(cut to Europa)</li>
+    </ul>
+<!--
+      Quellen in der Produktion von COP-DEM: Airbus WorldDEM infilled on a local basis with the following DEMs: ASTER, SRTM90, SRTM30, SRTM30plus, GMTED2010, TerraSAR-X Radargrammetric DEM, ALOS World 3D-30m.
+-->
+    </textarea>
+</section>
+
+
+<section>
+  <h2>Climate data time series in higher resolution</h2>
+    <img src="img/era5_screenhot_t2m_min.png" alt=ERA5 T2m min daily" class="stretch">
+  <ul>
+    <li>Time series of continental ERA5-Land raster data, spatially improved <a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=ERA5">from 9 km resolution to 1 km</a> using CHELSA data:</li>
+    <ul>
+        <li>Temperature (2000 - 2021)</li>
+        <li>Precipitation (2000 - 2021)</li>
+        <li>Relative humidity (2000 - 2021) - after <it>Wright 1997</it></li>
+    </ul>
+    <li>Motivation: Calculation of heat island risk, derivation of regional trends, human well-being (thermoregulation of the body).</li>
+</ul>
+</section>
+
+<section>
+    <h2>Germany land-cover mapping based on Sentinel-2 data and monitoring of land use changes</h2>
+    LULC and change detection maps from S2, with <em>r.incora</em>, a related GRASS GIS addon incl. creation of training points from rule sets.
+    <br>
+    <img src="img/incora_germany_2019_incl_subset.png" alt="GRASS GIS and LULC classification" class="stretch"><br>
+    <small>For details, see <a href="https://www.mundialis.de/en/germany-2020-land-cover-based-on-sentinel-2-data/">this</a> blog post. Funding: "incora" mFUND project (FKZ: 19F2079C)</small>
+</section>
+
+
+<section>
+    <h2>Germany land-cover mapping based on Sentinel-2 data and monitoring of land use changes</h2>
+    <ul>
+        <li>LULC data from Sentinel-2 with 6 classes,<br>
+            for 2016, 2019, 2020, 2021 (<a href="https://data.mundialis.de/geonetwork/srv/eng/catalog.search#/search?any=incora">GNOS search</a>)</li>
+        <li>Change detection between different maps</li>
+    </ul>
+    <img src="img/incora_GNOS.png" alt="GNOS: incora" width="65%">
+</section>
+
+
+<section>
+    <h2>Building extraction</h2>
+    <img src="img/rvr_buildings.png" alt="Gebäudeextraktion" class="stretch">
+    <ul>
+        <li>For (urban) planning purposes it is essential to have accurate data of the current building stock.</li>
+        <ul>
+            <li>The data sets of the "house perimeters" are not available as open data in all federal states.</li>
+            <li>Automated extraction from aerial photographs and possibly other current sources (LiDAR, nDSM, ...)</li>
+            <li>Extraction of buildings and green roofs</li>
+        </ul>
+    <li>Software now available on GitHub <br>
+    (<a href="https://github.com/mundialis/rvr_interface">https://github.com/mundialis/rvr_interface</a>)</li>
+    </ul>
+</section>
+
+
+<section>
+ <h2>Detection of single trees</h2>
+    <img src="img/nrw_bahn_einzelbaumerkennung.png" alt="Einzelbaumerkennung" class="stretch">
+    <ul>
+        <li>Relevance: see urban climate, traffic safety obligation, biomass estimates, ...</li>
+       <li>Software now available on GitHub <br>
+      (<a href="https://github.com/mundialis/rvr_interface">https://github.com/mundialis/rvr_interface</a>)</li>
+    </ul>
+</section>
+
+
+<section>
+    <h1>The GIS army knife - developed by the community: GRASS GIS</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
+
+
+<section id="GRASS GIS generalities"  data-background-image="img/grass_template.png"
+         data-background-position="bottom"
+         data-background-size="100% 20%">
+    <h2>GRASS GIS general features</h2>
+    <ul>
+        <li>Free and open source, you can use, modify, improve, share</li>
+        <li>Large amount of tools: <b>+500</b> <a href="https://grass.osgeo.org/grasss-stable/manuals/full_index.html">core modules</a>, <b>+300</b> <a href="https://grass.osgeo.org/grasss-stable/manuals/addons/">addons</a></li>
+        <li>Graphical User Interface and command line</li>
+        <li>C API, Python API and libraries</li>
+        <li>Interface/connection with R, QGIS, REST API, WPS, etc.</li>
+        <li>Different data types supported:
+            <a href="https://grass.osgeo.org/grass-stable/manuals/rasterintro.html">raster</a>
+            (including <a href="https://grass.osgeo.org/grass-stable/manuals/imageryintro.html">satellite imagery</a>),
+            <a href="https://grass.osgeo.org/grass-stable/manuals/raster3dintro.html">3D raster or voxel</a>,
+            <a href="https://grass.osgeo.org/grass-stable/manuals/vectorintro.html">vector</a> and,
+            <a href="https://grass.osgeo.org/grass-stable/manuals/temporalintro.html">space-time datasets</a>.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>GRASS GIS: All-in-one software suite</h2>
+        <ul>
+            <li>All matured tools available right away
+            <li>Download of experimental tools possible
+            <li>Network analysis, hydrology, remote sensing, vector topology, time series, &hellip;
+        </ul>
+        <br>
+        <img src="img/grass821.png" alt="GRASS GIS 8.2.1" class="stretch">
+</section>
+
+
+<section>
+    <h2>Integration of GRASS GIS and Jupyter Notebooks</h2>
+    <ul>
+        <li>Notebooks: Mix of text, code, results, images, &hellip;</li>
+        <li>Usage: Prototyping, reproducibility, tutorials, &hellip;</li>
+        <li>Now in GRASS GIS: Python functions for easy integration</li>
+    </ul>
+  <!--
+    <img src="img/jupyter_text_images_3d.png" alt="GRASS GIS and Jupyter notebooks" width="33%">
+  -->
+    <img src="img/jupyter_interactive_viewshed.png" alt="GRASS GIS and viewshed" width="33%">
+    <img src="img/jupyter_timeseries_viewshed.gif" alt="GRASS GIS and viewshed time series"  width="40%">
+    <p>
+        <a href="https://tinyurl.com/grass-rc2">tinyurl.com/grass-rc2</a> (run in Binder)
+    </p>
+    <p>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</p>
+</section>
+
+
+<section>
+    <h2>Boxplots in space-time raster data set</h2>
+    <em>t.rast.boxplot</em> draws boxplots of the raster in a
+    space-time raster data set.
+    <br>
+    <img src="img/t_rast_boxplot_02.png" alt="t.rast.boxplot example"  width="45%">
+    <img src="img/t_rast_boxplot_03.png" alt="t.rast.boxplot example"  width="45%">     <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/t.rast.boxplot.html">addon</a>
+      by Paulo van Breugel</p>
+</section>
+
+
+<section>
+  <h2>GRASS Community Meeting Prague 2023</h2>
+  Work and party: 40 years of GRASS GIS!
+    <img src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" class="stretch">
+<!--
+  <div style="position:relative; width:800px; height:600px; margin:0 auto;">
+    <img class="fragment fade-out" data-fragment-index="0" src="img/grass40_collage.jpg" alt="GRASS Meeting in Prague (work)" style="position:absolute;top:0;left:0;" width="100%">
+    <img class="fragment fade-in" data-fragment-index="0" width="100%"src="img/grass40_collage_party.jpg" alt="GRASS meeting in Prague (party)" style="position:absolute;top:0;left:0;">
+  </div>
+-->
+</section>
+
+
+<section>
+    <h2>Code contributions</h2>
+    <br>
+    <h3>GRASS GIS development is GitHub-centered: core, addons, website</h3>
+    <ul>
+        <li>Fill bug reports or feature requests</li>
+        <li>All issues and PR's are publicly visible</li>
+        <li>Ask, comment, suggest also in Github <a href="https://github.com/OSGeo/grass/discussions">Discussions</a></li>
+        <li><em>"Fork me on <a href="https://github.com/OSGeo/grass">GitHub</a>"</em> and suggest changes or fix bugs via pull requests</li>
+        <li>Create your own addon! See this nice workshop for a guideline:
+            <a href="https://github.com/wenzeslaus/python-grass-addon">How to write a Python tool for GRASS</a>
+        </li>
+    </ul>
+    <img src="img/octocat.png" alt="GitHub logo" class="stretch">
+</section>
+
+
+<section>
+    <h1>Going cloud: actinia</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
+
+
+<section>
+    <h2><a href="https://actinia.mundialis.de/"><strong>actinia</strong></a>: The GRASS GIS REST API</h2>
+    <ul>
+        <img src="img/actinia.png" alt="actinia logo" width="70px" style="float:right;pad-right:15px;">
+        <li>Open source REST API for scalable, distributed, high performance processing of geo data using GRASS GIS</li>
+        <li>More details in this <a href="https://mundialis.github.io/foss4g2022/">FOSS4G presentation</a></li>
+        <li>Wanna try? Follow this <a href="https://neteler.gitlab.io/actinia-introduction/">tutorial</a> for a demo user</li>
+        <li>Available on <i class="fa fa-github"></i>: <a href="https://github.com/actinia-org/actinia-core">https://github.com/actinia-org/actinia-core</a></li>
+    </ul>
+    <img src="img/ace_actinia_in_grass_session.jpg" alt="GRASS GIS and actinia session" class="stretch">
+    <small>by Carmen Tawalika, Anika Weinmann, Markus Neteler, Sören Gebbert, &hellip;</small>
+</section>
+
+
+<section>
+    <h2>actinia - QGIS plugin</h2>
+    <ul>
+        <img src="img/actinia.png" alt="actinia logo" width="50px" style="float:right;pad-right:15px;">
+         actinia connector:<br>
+          a QGIS plugin to  control actinia from QGIS 
+          (under development) 
+    </ul>
+    <img src="img/actinia_qgis_plugin.jpg" alt="actinia - QGIS plugin" class="stretch">
+    <small>by Anika Weinmann, &hellip;</small>
+</section>
+
+<section>
+    <h2>actinia - leafmap</h2>
+    <ul>
+        <img src="img/leafmap_logo.png" alt="leafmap logo" width="70px" style="float:right;pad-right:15px;">
+        Jupyter notebook: <br>
+        compute in actinia, visualize in <a href="https://leafmap.org/">leafmap</a>
+    </ul>
+    <img src="img/actinia_leafmap.jpg" alt="actinia - leafmap" class="stretch"><br>
+    <small>by Qiusheng Wu, Markus Neteler, &hellip;</small>
+</section>
+
+
+<section data-markdown
+         data-background-image="img/jupyter_openNRW_crop.jpg"
+         data-background-opacity="0.2">
+  <textarea data-template>
+  <h2>Software offerings by mundialis</h2>
+  <br><br>
+  <h3>Software (yes, it's FOSS!)</h3>
+    <ul>
+        <li> <a href="https://github.com/mundialis/">https://github.com/mundialis/</a> (> 60 repos)</li>
+        <li> <a href="https://github.com/actinia-org/">https://github.com/actinia-org/</a> (> 20 repos)</li>
+    </ul>
+  <br><br><br>
+  <h3>Open Data</h3>
+    <ul>
+    <li>Data (COG, GPKG) &amp; metadata at <a href="https://data.mundialis.de">https://data.mundialis.de</a></li>
+    <li>Datasets also on <a href="https://zenodo.org/search?page=1&size=200&q=mundialis">https://zenodo.org</a> (CITATION.cff API upload)</li>
+    </ul>
+  <br><br><br>
+  <h3>Tutorials</h3>
+    <ul>
+    <li>Jupyter notebooks at GitHub: <a href="https://github.com/actinia-org/actinia-jupyter/">actinia</a> &amp; <a href="https://github.com/mundialis/">mundialis</a></li>
+  </ul>
+  </textarea>
+</section>
+
+
+<section>
+    <h1>Talk to us!</h1>
+
+    <h3>mundialis GmbH & Co. KG</h3>
+    <br>Koelnstrasse 99
+    <br>53111 Bonn
+    <p>info@mundialis.de
+    <br><a href="https://www.mundialis.de">www.mundialis.de</a>
+
+    <p>Data: <a href="https://data.mundialis.de">https://data.mundialis.de</a></p>
+    <p>Presentation: <a href="https://github.com/neteler/grass-gis-talks-markus/">https://github.com/neteler/grass-gis-talks-markus/</a></p>
+
+    <br>
+    <a href="https://mastodon.social/@mundialis"><i class="fa fa-mastodon"></i>@mundialis</a>
+    <p>
+    <a href="https://twitter.com/MundialisInfo"><i class="fa fa-twitter"></i>MundialisInfo</a>
+</section>
+
+<!--
+<section>
+    <h1>Thanks for your attention!!</h1>
+    <br>
+    <img src="img/grass_gis.svg" alt="GRASS GIS logo" width="20%">
+    <p><a href="https://grass.osgeo.org/">grass.osgeo.org</a></p>
+    <p></p>
+    <p><small><a href="https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/osgeo_slovenia_grassgis2022.html#/">github.com/neteler/grass-gis-talks-markus</a></small></p>
+    <br>
+    <a href="https://mastodon.social/@neteler"><i class="fa fa-mastodon"></i>@neteler</a>
+    <br>
+    <a href="https://twitter.com/MarkusNeteler"><i class="fa fa-twitter"></i> MarkusNeteler</a>
+</section>
+
+-->
+
+<!-- ################# END CONTENT ################# -->
+
+        </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/chalkboard/plugin.js"></script>
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            hash: true,
+            // Display controls in the bottom right corner
+            controls: true,
+
+            // Display a presentation progress bar
+            progress: true,
+
+            center: true,
+
+            // Display the page number of the current slide
+            slideNumber: true,
+
+            // Enable the slide overview mode
+            overview: true,
+
+            // Turns fragments on and off globally
+            fragments: true,
+
+            // The "normal" size of the presentation, aspect ratio will be preserved
+            // when the presentation is scaled to fit different resolutions. Can be
+            // specified using percentage units.
+            // width: 960,
+            // height: 700,
+
+            // Factor of the display size that should remain empty around the content
+            margin: 0.05,  // increase?
+
+            // Bounds for smallest/largest possible scale to apply to content
+            minScale: 0.5,
+            maxScale: 5.0,
+
+            // Push each slide change to the browser history
+            history: true,
+            // Enable keyboard shortcuts for navigation
+            keyboard: true,
+
+            // Vertical centering of slides
+            center: true,
+
+            // Enables touch navigation on devices with touch input
+            touch: true,
+
+            // Loop the presentation
+            loop: false,
+            // Flags if the presentation is running in an embedded mode,
+            // i.e. contained within a limited portion of the screen
+            embedded: false,
+
+            // Number of milliseconds between automatically proceeding to the
+            // next slide, disabled when set to 0, this value can be overwritten
+            // by using a data-autoslide attribute on your slides
+            autoSlide: 0,
+
+            // Stop auto-sliding after user input
+            autoSlideStoppable: true,
+
+            // Enable slide navigation via mouse wheel
+            mouseWheel: false,
+
+            // Hides the address bar on mobile devices
+            hideAddressBar: true,
+
+            // Opens links in an iframe preview overlay
+            previewLinks: false,
+
+            // Slide transition
+            transition: 'none', // default/none/slide/concave/convex/zoom
+
+            // Transition speed
+            transitionSpeed: 'default', // default/fast/slow
+
+            // Transition style for full page slide backgrounds
+            backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+            // Number of slides away from the current that are visible
+            viewDistance: 3,
+
+            // Parallax background image
+            //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+            // Parallax background size
+            //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+            chalkboard: {
+                boardmarkerWidth: 3,
+                chalkWidth: 7,
+                chalkEffect: 1.0,
+                src: null,
+                readOnly: undefined,
+                toggleChalkboardButton: true,
+                toggleNotesButton: true,
+                boardmarkers : [
+                    { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
+                    { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                ]
+            },
+
+            math: {
+                mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                config: 'TeX-AMS_HTML-full',
+                // pass other options into `MathJax.Hub.Config()`
+                TeX: { Macros: { RR: "{\\bf R}" } }
+            },
+
+            plugins: [
+                RevealMath,
+                RevealHighlight,
+                RevealMarkdown,
+                RevealChalkboard
+            ]
+        });
+    </script>
+</body>
+</html>
