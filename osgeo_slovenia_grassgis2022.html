@@ -3,20 +3,21 @@
 
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
         <title>GRASS GIS 8: from Desktop to Big Data Cubes</title>
 
         <meta name="description" content="GRASS GIS talk slides at Open Source Geospatial Slovenija 2022">
         <meta name="author" content="Markus Neteler, Veronica Andreo, Vaclav Petras, Anna Petrasova">
 
-        <link rel="stylesheet" href="dist/reset.css">
-        <link rel="stylesheet" href="dist/reveal.css">
+   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="reveal/reset.css">
+        <link rel="stylesheet" href="reveal/reveal.css">
         <link rel="stylesheet" href="css/theme/osgeo.css" id="theme">
         <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
 
         <!-- Theme used for syntax highlighted code -->
-        <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+        <link rel="stylesheet" href="reveal/plugin/highlight/monokai.css" id="highlight-theme">
         <!-- For chalkboard plugin -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -1354,12 +1355,14 @@
         </div>
     </div>
 
-    <script src="dist/reveal.js"></script>
-    <script src="plugin/notes/notes.js"></script>
-    <script src="plugin/markdown/markdown.js"></script>
-    <script src="plugin/highlight/highlight.js"></script>
-    <script src="plugin/math/math.js"></script>
-    <script src="plugin/chalkboard/plugin.js"></script>
+    <!-- reveal internal plugins -->
+    <script src="reveal/reveal.js"></script>
+    <script src="reveal/plugin/notes/notes.js"></script>
+    <script src="reveal/plugin/markdown/markdown.js"></script>
+    <script src="reveal/plugin/highlight/highlight.js"></script>
+    <script src="reveal/plugin/math/math.js"></script>
+    <!-- extra plugins -->
+    <script src="reveal_plugins/chalkboard/plugin.js"></script>
     <script>
 
         // Full list of configuration options available here:
@@ -1457,8 +1460,8 @@
                 toggleChalkboardButton: true,
                 toggleNotesButton: true,
                 boardmarkers : [
-                    { color: 'rgba(220,20,60,1)', cursor: 'url(' + path + 'img/boardmarker-red.png), auto'},
-                    { color: 'rgba(255,140,0,1)', cursor: 'url(' + path + 'img/boardmarker-orange.png), auto'},
+                    { color: 'rgba(220,20,60,1)', cursor: 'url(' + 'reveal_plugins/' + 'img/boardmarker-red.png), auto'},
+                    { color: 'rgba(255,140,0,1)', cursor: 'url(' + 'reveal_plugins/' + 'img/boardmarker-orange.png), auto'},
                 ]
             },
 
@@ -1470,10 +1473,10 @@
             },
 
             plugins: [
-                RevealMath,
-                RevealHighlight,
-                RevealMarkdown,
-                RevealChalkboard
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown
+                    // RevealChalkboard
             ]
         });
     </script>
