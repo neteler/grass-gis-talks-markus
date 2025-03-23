@@ -1,6 +1,7 @@
 # GRASS GIS Talks
 
-* [Celebrating four decades of innovation: The GRASS GIS Project](https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/foss4g_asia2024.html), FOSS4G-Asia 2024 - Bangkok, Thailand, 15-18 December 2024. ([abstract](https://talks.geoinfo-lab.org/foss4g-asia-2024/talk/KYNT8Z/))
+* [Stand des GRASS GIS Projekts: Neuigkeiten und Perspektiven](https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/fossgis_grass_LT_2025.html), FOSSGIS 2025, Münster, Deutschland, 26.-29. März 2025 ([abstract](https://pretalx.com/fossgis2025/talk/JAWZUC/))
+* [Celebrating four decades of innovation: The GRASS GIS Project](https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/foss4g_asia2024.html), FOSS4G-Asia 2024, Bangkok, Thailand, 15-18 December 2024 ([abstract](https://talks.geoinfo-lab.org/foss4g-asia-2024/talk/KYNT8Z/))
 * [Stand des GRASS GIS Projekts: Nicht was Sie denken!](https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/fossgis2024.html#/), FOSSGIS 2024, Hamburg, 20. - 23. März 2024 ([abstract](https://pretalx.com/fossgis2024/talk/review/MXQW8WZVMQWFPFL9B77TTNYFEWJGFLGD))
 * [Innovations in Open Data Products and Cloud-based Geoprocessing](https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/2023_bucharest_data_cloud.html#/). Seminariile geo-spatial.org: București 2023, 2023-10-27 ([abstract](https://pretalx.geo-spatial.org/seminar-bucuresti-2023/talk/ECRDVB/))
 * FOSS4G 2022 - Florence: [State of GRASS GIS](https://neteler.github.io/grass-gis-talks-markus/foss4g2022.html)
