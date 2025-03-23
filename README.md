@@ -26,7 +26,7 @@
 
 ## Copyright and License
 
-&copy; 2022-2024 The Authors
+&copy; 2022-2025 The Authors
 
 See each slide deck for the list of authors.
 
