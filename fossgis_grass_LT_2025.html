@@ -197,11 +197,169 @@ https://pretalx.com/fossgis2025/talk/JAWZUC/
 2025: GRASS Developer Summit (North Carolina, finanziert durch NSF-Grant)
 -->
 
+<!-- Canva drawing: https://www.canva.com/design/DAGic0WS4vc/znpjYQBOSmNCTgEEi2GBpw/edit -->
+
         <div class="column" style="width:109%;text-align:left;padding-top:0.5em;">
             <img src="img/GRASS_Development_Zeitleiste_canva.png" alt="GRASS Development Zeitleiste" width="100%">
         </div>
     </div>
 </section>
+
+
+<section>
+    <h1>Highlights der Version 8.4</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
+
+
+<section>
+    <h2>Mehr Benutzerfreundlichkeit</h2>
+    <p>Der Begriff "Location" heißt nun einfach "Project":</p>
+    <p>für eine intuitivere Datenorganisation</p>
+    <img src="img/grass85_gui_location2project.png" class="stretch">
+</section>
+
+
+<section>
+    <h2>Neue Analysewerkzeuge:<br> mehr Machine Learning</h2>
+
+    <p>Überwachte Klassifizierung mit Support Vector Machines (SVM)
+    <ul>
+        <li><a href="https://grass.osgeo.org/grass84/manuals/i.svm.train.html">i.svm.train</a>: Eine Support Vector Machine trainieren</li>
+        <li><a href="https://grass.osgeo.org/grass84/manuals/i.svm.predict.html">i.svm.predict</a>: Vorhersage mit einer Support Vector Machine</li>
+    </ul>
+    </p>
+    <img src="img/svm_user_accuracy.png" style="width: 50%">
+    <img src="img/nartiss2023_tgis13102-fig-0004-m.jpg" style="width: 45%">
+
+    <small>by Maris Nartiss (<a href="https://doi.org/10.1111/tgis.13102">Nartiss & Melniks 2023</a>)</small>
+</section>
+
+
+<section>
+    <h2>Schnittstellen: JSON für Textausgaben</h2>
+
+In immer mehr GRASS Tools neu: <code style="font-size: 80%;">format="json"</code> Ausgabe
+
+<pre class="bash" style="font-size: 80%;"><code>
+GRASS nc_spm_08/user1:~ > v.info zipcodes_wake format=json
+</code></pre>
+<pre class="json"><code>
+{
+    "name": "zipcodes_wake",
+    "mapset": "PERMANENT",
+    "title": "Wake County zip codes (polygon map)",
+[...]
+    "areas": 48,
+    "islands": 2,
+    "primitives": 206
+}
+</code></pre>
+
+<i style="font-size: 80%;">Aktuell unterstützt in:</i>
+
+<table border="0" style="font-size: 80%;">
+  <tr>
+    <td>i.signatures</td>
+    <td>r.describe</td>
+    <td>r.info</td>
+  </tr>
+  <tr>
+    <td>r.category</td>
+    <td>r.geomorphon</td>
+    <td>r.kappa</td>
+  </tr>
+  <tr>
+    <td>r.colors.out</td>
+    <td>r.horizon</td>
+    <td>r.mask.status</td>
+  </tr>
+  <tr>
+    <td>r.object.geometry</td>
+    <td>r.profile</td>
+    <td>r.report</td>
+  </tr>
+  <tr>
+    <td>r.univar</td>
+    <td>r.what</td>
+    <td>r3.colors.out</td>
+  </tr>
+  <tr>
+    <td>r3.univar</td>
+    <td>t.rast.list</td>
+    <td>v.category</td>
+  </tr>
+  <tr>
+    <td>v.colors.out</td>
+    <td>v.db.select</td>
+    <td>v.db.univar</td>
+  </tr>
+  <tr>
+    <td>v.distance</td>
+    <td>v.info</td>
+    <td>v.univar</td>
+  </tr>
+</table>
+
+</section>
+
+<section>
+    <h2>GUI: Neues History Browser Panel</h2>
+
+    <img src="img/gui_history_panel.png" class="stretch">
+    <small>by Linda Karlovska mit einem <a href="https://grasswiki.osgeo.org/wiki/Student_Grants">GRASS Student Grant</a></small> 
+    
+    <aside class="notes">
+        Commands grouped by date, we can see their status, the region setting when they were executed, etc.
+
+        Other GUI improvements include the integration of the modeler within single window layout,
+        undockable map displays, faster rendering in d modules.
+    </aside>
+</section>
+
+
+<section>
+    <h2>Bessere Datenvisualisierung mit Jupyter</h2>
+
+    <p>&gt; <tt>grass.jupyter</tt> Python-Paket &lt;</p>
+
+    <ul>
+        <li>
+            Neue Klasse <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html#module-grass.jupyter.seriesmap"><tt>grass.jupyter.SeriesMap</tt></a>
+            zur Animation von Serien von Vektor- oder Rasterkarten
+            <small>(zeitliche Animationen bereits verfügbar)</small>
+        </li>
+    </ul>
+    <pre><code data-trim data-noescape>
+    s = gj.SeriesMap(height = 500)
+    s.add_rasters(["elevation_shade", "geology", "soils"])
+    s.add_vectors(["streams", "streets", "viewpoints"])
+    s.d_barscale()
+    s.show()
+    </code></pre>
+    <ul>
+        <li>
+            Neue Option, eine Karte mit <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html?highlight=ipyleaflet#module-grass.jupyter.interactivemap"><tt>grass.jupyter.interactivemap</tt></a> (ipyleaflet) zu erstellen
+            <small>(wird in G8.5 interaktiv sein)</small>
+        </li>
+    </ul>
+
+    <pre><code data-trim data-noescape>
+    m = InteractiveMap(map_backend="ipyleaflet")
+    m.add_vector("streams")
+    m.add_raster("elevation")
+    m.show()
+    </code></pre>
+
+    <small>
+        by Caitlin Haedrich, Riya Saxena, Anna Petrasova
+    </small>
+
+<!--
+    <img src="img/jupyter_interactive_viewshed.png" class="stretch">
+-->
+</section>
+
 
 <section>
     <h2>Wachsende Entwicklungs-Community</h2>
@@ -211,1289 +369,37 @@ https://pretalx.com/fossgis2025/talk/JAWZUC/
     <small><a href="https://github.com/OSGeo/grass/">github.com/OSGeo/grass/</a></small>
 </section>
 
-<section>
-    <h1>Highlights der Version 8.4</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-<section>
-    <h2>Mehr Benutzerfreundlichkeit</h2>
-    <p>Der Begriff "Location" ist zu "Project" geworden</p>
-    <img src="img/1990_CERL_shapiro_westervelt_goran_1st_GAIA_award.png" style="width: 55%">
-    <br><br>
-    <small>Img. courtesy: Jim Westervelt 2006</small>
-    <br>
-    <small><a href="http://2006.foss4g.org/contributionDisplay7563.html?contribId=214&sessionId=54&confId=1">Early GRASS Community Views on FOSS</a></small>
-</section>
-
-<section>
-    <h2>Neue Analysewerkzeuge</h2>
-    <ul>
-        <li><b>1984</b> – GRASS running on SUN-1 and Masscomp</li>
-        <li><b>1985</b> – <a href="https://grass.osgeo.org/about/history/">GRASS 1.0</a>, GRASSnet established (pre-mailing list)</li>
-        <li><b>1985</b> – Richard Stallman publishes the <a href="https://www.gnu.org/gnu/manifesto.en.html">GNU Manifesto</a></li>
-        <li><b>1987</b> – GRASS 2.0; first issue of GRASSClippings Newsletter</li>
-        <li><b>1987</b> – <a href="https://doi.org/10.5446/12963">GRASS video</a> narrated by William Shatner (Captain Kirk of Star Trek)</li>
-        <li><b>1988</b> – GRASS 3.0 and Army R&D Achievement Award (Webster, Goran, Shapiro, Westervelt)</li>
-    </ul>
-    <img src="img/1980th_grass_video_3D_floppy_sat.png" class="stretch">
-</section>
-
-
-<section>
-    <h2>&nbsp;&nbsp;The 1980's&hellip; but how did the development happen?</h2>
-    <b>1989</b> – GRASS 3.1 First release available on Internet (uxc.cso.uiuc.edu)
-    <br><br>
-    &hellip; still almost no connected users, and WWW appeared only in 1993.
-    <br><br>
-    Now, how was GRASS GIS software developed? <b>Locally!</b>
-    <br><br>
-    While Revision Control System (RCS) was available and sometimes used, yet no internet based systems (CVS 1.0 in 1990, later SVN, then Git)
-    <br>
-    <img src="img/1980th_magnetic_tapes.png" style="width: 46%">
-    <img src="img/1980th_grass_hardware_cost.png" style="width: 45%">
-</section>
-
-<section>
-    <h2>The 1990's&hellip; visualization and analysis</h2>
-    
-    New technology becomes available!
-    <br>
-    <img src="img/1990_mitasova_soil3D.png" style="width: 45%">
-    <img src="img/1992_openGL_GRASS_GIS_SG3D.png" style="width: 45%">
-    <br><br>
-    <small>Source: <a href="https://web.archive.org/web/20060505050528/http://skagit.meas.ncsu.edu/~helena/gmslab/gsoils/vizrep2.html">http://skagit.meas.ncsu.edu/~helena/gmslab/gsoils/vizrep2.html</a></small>
-</section>
-
-<section>
-    <h2>The 1990's&hellip; Open GRASS Foundation goes OGC</h2>
-    <em>GRASSCLIPPINGS</em>: a periodic publication of<br>
-       <b>The Open GRASS Foundation</b> (1992) which then became<br>
-       <b>The Open GIS Foundation</b> (1994) and eventually<br>
-       the <b>Open Geospatial Consortium</b> (2004)
-    <br><br>
-    See also the <a href="https://web.archive.org/web/20220511133736/https://www.ogc.org/ogc/historylong">long history at OGC</a> (web archive)
-    <br>
-    <img src="img/1992_grassclippings_OGF_mosaic.png" class="stretch">
-    <br><br>
-    <small>PDF: <a href="https://grass.osgeo.org/files/grassclip6_3_92.pdf">GRASSCLIPPINGS Winter 1992, Vol 6, No 3</a></small>
-    <!-- see also: https://grass.osgeo.org/about/history/ and
-                   https://wiki.osgeo.org/wiki/Open_Source_GIS_History
-    -->
-</section>
-
-<section>
-    <h2>The 1990's&hellip; First Web Applications come up, finally!</h2>
-    <ul>
-        <li><b>1994</b> – GNU/Linux 1.0 released; GRASS 4.1.5 ported a year later</li>
-        <li><b>1994</b> – GRASSLinks: an interactive GIS via WWW (S. M. Huse)</li>
-        <li><b>1995</b> – UMN MapServer project started</li>
-    </ul>
-    <img src="img/1998_GRASSLinks_Berkeley.png" style="width: 48%">
-    <img src="img/1998_GRASSLinks_REGIS.png" style="width: 43%">
-</section>
-
-<section>
-    <h2>The 1990's&hellip; Internet, its tools and geeks spreading!</h2>
-    <ul>
-<!--
-        <li><b>1996</b> – GeoTools project started</li>
-        <li><b>1998</b> – deegree (originally JaGo) development started with an OGC Simple Features implementation</li>
--->
-        <li><b>1998</b> – GDAL/OGR development started by Frank Warmerdam</li>
-        <li><b>1998</b> – First European GRASS GIS server at ILN,<br>University of Hannover, Germany</li>
-        <li><b>1999</b> – GRASS GIS source code moved from manual management to CVS, precisely on 29th Dec. 1999 :-)</li>
-    </ul>
-    <img src="img/1998_grass_gis_spring_cleaning_mailing_list.png" class="stretch">
-</section>
-
-<section>
-    <h2>2004: May the FOSS be with you</h2>
-    <!-- 2002 - GRASS GIS user conference in Trento, Italy -->
-    <br>
-    <img src="img/2004_may_the_FOSS_be_with_you.png" style="width: 56%">
-    <img src="img/foss4g_2004_website.png" style="width: 43%">
-    <br>
-    <small><a href="https://foss4g.asia/2004/">https://foss4g.asia/2004/</a></small>
-</section>
-
-<section>
-    <h2>Free/Libre and Open Source Software for Geoinformatics: GIS-GRASS Users Conference</h2>
-    Chulalongkorn University, Bangkok 2004:<br>
-    FOSS4G was born, meanwhile 20 years ago!
-    <br>
-    <img src="img/2004_FOSS4G_mosaic.png" class="stretch">
-    <!--
-    <br>
-    <small>M. Neteler, D. McIlhagga, ?, Dave Hastings, Jim Westervelt, ?</small>
-    -->
-</section>
-
-<section>
-    <h2>Community Meeting in 2012</h2>
-    <br>
-    <img src="img/2012_grass_gis_community_print_prague.png" class="stretch">
-</section>
-
-<!-- too much
-<section>
-    <h2>More Community&hellip; 2023</h2>
-    The international tribe, again meeting in Prague
-    <br>
-    <img src="img/community_prague_2023_group.jpg" class="stretch">
-    <img src="img/github_contributors_2024-12-15.png" style="width: 70%">
-</section>
--->
-
-<section>
-    <h2>Community Meeting in 2023</h2>
-    GRASS GIS celebrated its <b>40th birthday</b> mit CMake Build, 8.3.0 Release &hellip;
-    <br>
-    <img src="img/grass2023_40bday_collage.jpg" class="stretch">
-    <small><a href="https://grass.osgeo.org/news/2023_08_13_grass_community_meeting_prague_june_2023_report/">grass.osgeo.org &gt; News &gt; Report of the GRASS GIS Community Meeting in Prague</a></small>
-    <aside class="notes">This talk will also report on GRASS GIS Community Meeting 2023 in Prague where the participants celebrated the 40th birthday of GRASS GIS by contributing more code.</aside>
-</section>
-
-<section>
-    <h2>More Community&hellip; 2024</h2>
-    Work on the project's mission and roadmap, Python API, parallelization, reproducibility, documentation and website navigation
-    <img src="img/2024_community_meeting_collage.png" style="width: 55%"><br>
-    <img src="img/github_contributors_2024-12-15.png" style="width: 40%">
-    <small><a href="https://grass.osgeo.org/news/2024_08_02_report_community_meeting_prague_2024/">grass.osgeo.org &gt; News &gt; Report of the GRASS GIS Community Meeting in Prague</a></small>
-</section>
-
-<section id="GRASS GIS generalities"  data-background-image="img/grass_template.png"
-         data-background-position="bottom"
-         data-background-size="100% 20%">
-    <h2>GRASS GIS general features</h2>
-    <ul>
-        <li>Free and open source, you can use, modify, improve, share</li>
-        <li>Large amount of tools: <b>+500</b> <a href="https://grass.osgeo.org/grasss-stable/manuals/full_index.html">core modules</a>, <b>+300</b> <a href="https://grass.osgeo.org/grasss-stable/manuals/addons/">addons</a></li>
-        <li>Graphical User Interface and command line</li>
-        <li>C API, Python API and libraries</li>
-        <li>Interface/connection with R, QGIS, REST API, WPS, etc.</li>
-        <li>Different data types supported:
-            <a href="https://grass.osgeo.org/grass-stable/manuals/rasterintro.html">raster</a>
-            (including <a href="https://grass.osgeo.org/grass-stable/manuals/imageryintro.html">satellite imagery</a>),
-            <a href="https://grass.osgeo.org/grass-stable/manuals/raster3dintro.html">3D raster or voxel</a>,
-            <a href="https://grass.osgeo.org/grass-stable/manuals/vectorintro.html">vector</a> and,
-            <a href="https://grass.osgeo.org/grass-stable/manuals/temporalintro.html">space-time datasets</a>.</li>
-    </ul>
-</section>
-
-<section>
-    <h2>GRASS GIS is a Desktop-GIS: new GUI</h2>
-    <img src="img/gui_orange_viewsheds_buffer.png" class="stretch">
-</section>
-
-<!-- behaves like two slides:
-<section>
-    <h2>Interfaces: QGIS</h2>
-    <div style="position:relative; width:780px; height:480px; margin:0 auto;">
-        <img class="fragment fade-out" data-fragment-index="0" width="780" height="480" src="img/qgis_grass_plugin.png" alt="QGIS GRASS plugin" style="position:absolute;top:0;left:0;"/>
-        <img class="fragment fade-in" data-fragment-index="0" width="780" height="480" src="img/qgis_processing.png" alt="QGIS Processing" style="position:absolute;top:0;left:0;" />
-    </div>
-    <p><em>Using GRASS through "Processing" in QGIS</em></p>
-</section>
--->
-
-<!-- condensed to one slide: -->
-<section>
-    <h2>Interfaces: QGIS</h2>
-    <img src="img/qgis_grass_plugin.png" alt="QGIS GRASS plugin" style="width: 49%">
-    <img src="img/qgis_processing.png" alt="QGIS Processing" style="width: 49%">
-    <p><em>Using GRASS through "Processing" in QGIS</em></p>
-</section>
-
-
-<section>
-    <h2>Interfaces: R</h2>
-    <img src="img/RwithinGRASS_and_Rstudio_from_grass.png" alt="GRASS GIS and R" class="stretch">
-    <p><em>Using GRASS through R and Rstudio</em></p>
-</section>
-
-
-<section>
-    <h2>Interfaces: R</h2>
-    "rgrass" package to use GRASS GIS from R is available on <a href="https://cran.r-project.org/web/packages/rgrass/">CRAN</a>.
-    <br>
-    <img src="img/R_rgrass_terra_GRASS_GIS8.jpg" class="stretch">
-</section>
-
-<section>
-    <h2>Interfaces: Python</h2>
-    <img src="img/grass_pyedit.png" alt="GRASS GIS and Python" class="stretch">
-    <p><em>Python and GRASS</em></p>
-</section>
-
-<section>
-    <h2>Managing GRASS GIS sessions in Python</h2>
-    The revised GRASS session makes it easier to <br>
-    use GRASS tools from Python
-    <br>
-    <img src="img/python_session.png" class="stretch">
-</section>
-
-<section>
-    <h2>Command description with <code>--json</code></h2>
-    <ul>
-        <li>Translates command line parameters into JSON.</li>
-        <li>Used by actinia for integration with GRASS GIS.</li>
-        <li>We are looking for feedback for other use cases.</li>
-    </ul>
-    <pre style="font-size: 94%;"> r.viewshed \
-        input=elevation output=viewshed \
-        coordinates=642964,222890 --json
-    </pre>
-    <img src="img/grass8_cli_json.png" class="stretch">
-</section>
-
-<!--
-<section>
-    <h2>All-in-one software suite</h2>
-        <ul>
-            <li>All matured tools available right away
-            <li>Download of experimental tools possible
-            <li>Network analysis, hydrology, remote sensing, OBIA, time series, &hellip;
-        </ul>
-        <br>
-        <img src="img/hexagons_3d_white_outlier.png" alt="GRASS GIS hexagons" class="stretch">
-</section>
--->
-
-<!-- too much detail
-<section>
-    <h2>Roadmap</h2>
-    <ul>
-
-        <li>
-            7.8.7, Feb 2022:
-            <small>Stability and fixes.</small>
-        </li>
-        <li>
-            8.0.0, Feb 2022:
-            <small>New startup, data management.</small>
-        </li>
-        <li>
-            8.0.2, May 2022:
-            <small>Stability and fixes.</small>
-        </li>
-
-        <li>
-            8.2.0, June 2022:
-            <small>Jupyter notebooks, parallel r.neighbors, &hellip;</small>
-        </li>
-        <li>
-            8.3.0, June 2023:
-            <small>single window interface as the default</small>
-        </li>
-        <li>
-            8.4.0, July 2024:
-            <small>terminology: "location" -&gt; "project" + JSON support</small>
-        </li>
-	    <ul>
-          <li> <small>major.minor.micro &ndash; semantic versioning:</small></li>
-          <ul>
-              <li> <small>major (x) brings <b>features and possibly backward incompatible changes</b></small></li>
-              <li> <small>minor (x.y) brings <b>features and fixes</b>,</small></li>
-              <li> <small>micro (x.y.z) brings <b>fixes</b></small></li>
-          </ul>
-        </ul>
-    <img src="img/splash_screen.png" alt="GRASS GIS splash screen" width="70%">
-</section>
--->
-
-<section>
-    <h1>Exciting new features<br>in GRASS GIS 8</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-<!-- too much for FOSSGIS 2025
-<section>
-    <h2>Skeletons and Centerlines</h2>
-    <em>v.voronoi</em> tool can now create area skeletons and centerlines.
-    <img src="img/lake_skeleton_naip.png" alt="GRASS GIS and vector skeletonising" class="stretch">
-    <p>by Markus Metz
-</section>
-
-<section>
-    <h2>Latest PROJ and GDAL support</h2>
-    <ul>
-        <li>Support for PROJ &gt;=6 added.</li>
-        <li>Support for GDAL &gt;=3 added.</li>
-        <li>WKT2 can be used for CRS definitions.</li>
-        <li>High-accuracy coordinate transformations supported.</li>
-    </ul>
-    <img src="img/natural_europe.png" alt="natural Europe map" class="stretch">
-    <p>by Markus Metz</p>
-    <aside class="notes">
-        GRASS is currently supporting the latest versions of PROJ and GDAL.
-        All the fancy new high-accuracy coordinate transformation methods are supported.
-        The WKT2 can be used to define a CRS and is printed as CRS info by g.proj.
-        Some new PROJ 8 functionality is not yet supported.
-        For example, automated download of datum transformation grids is yet missing.
-    </aside>
-</section>
--->
-
-<section>
-    <h2>Integration of GRASS GIS and Jupyter Notebooks</h2>
-    <p>GRASS GIS has a <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/">Python API</a> and Jupyter notebook support:</p>
-    <ul>
-        <li>Notebooks: Mix of text, code, results, images, &hellip;</li>
-        <li>Usage: Prototyping, reproducibility, tutorials, &hellip;</li>
-    </ul>
-  <!--
-    <img src="img/jupyter_text_images_3d.png" alt="GRASS GIS and Jupyter notebooks" width="33%">
-  -->
-    <img src="img/jupyter_interactive_viewshed.png" alt="GRASS GIS and viewshed" width="36%">
-    <img src="img/jupyter_timeseries_viewshed.gif" alt="GRASS GIS and viewshed time series"  width="46%">
-    <p>
-     <small><a href="https://tinyurl.com/grass-jupyter-8-4">https://tinyurl.com/grass-jupyter-8-4</a> (run in Binder)</small>
-     <br>
-     <small>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</small>
-    </p>
-</section>
-
-<!-- Jupyter as separate slides
-<section>
-    <h2>New! Integration with Jupyter Notebooks</h2>
-    <h3>Integration of results from Google Summer of Code 2021</h3>
-    <p>
-        Web map with base maps, zooming, customizations, &hellip;
-    </p>
-    <img src="img/jupyter_interactive_viewshed.png" alt="GRASS GIS and viewshed" class="stretch">
-    <p>
-        <a href="https://tinyurl.com/grass-rc2">tinyurl.com/grass-rc2</a> (run in Binder)
-    </p>
-    <p>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</p>
-</section>
-
-
-<section>
-    <h2>New! Integration with Jupyter Notebooks</h2>
-    <h3>Integration of results from Google Summer of Code 2021</h3>
-    <p>
-        Time-series visualization
-    </p>
-    <img src="img/jupyter_timeseries_viewshed.gif" alt="GRASS GIS and viewshed time series" class="stretch">
-    <p>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</p>
-</section>
-
-
-<section>
-    <h2>New! Integration with Jupyter Notebooks</h2>
-    <h3>Integration of results from Google Summer of Code 2021</h3>
-    <p>
-        3D visualization
-    </p>
-    <img src="img/jupyter_3d_viewshed.png" alt="GRASS GIS and 3D viewshed" class="stretch">
-    <p>by Vaclav Petras, Anna Petrasova, Caitlin Haedrich</p>
-</section>
--->
-
-<section>
-    <h2>Semantic Labels for Rasters</h2>
-    <ul>
-        <li>
-            Assigning meaningful labels to raster maps
-            <small>(e.g., <b>S2_1</b> or <b>red</b>)</small>
-            <ul>
-                <li>image classification can use sematic labels to identify bands</li>
-                <li>different scenes can then be classified if semantic labels are the same</li>
-            </ul>
-        </li>
-     <!--   <li>organize bands within one spatio-temporal dataset</li> -->
-        <li>Signature files can be used for classification if band references match (semantically equivalent)</li>
-    </ul>
-    <br>
-    <img src="img/band_references_scheme.png" alt="GRASS GIS and semantic labels" class="stretch">
-    <p>by Maris Nartiss, Martin Landa, Markus Metz</p>
-</section>
-
-
-<!-- too much for FOSSGIS 2025
-<section>
-    <h2>Faster External Data Links</h2>
-    <em>r.external</em> links (opens) external raster data (GeoTiffs, &hellip;) faster.
-    <br>
-    <small>(2-5&times; faster, or almost no time for some workflows)</small>
-    <br>
-    <img src="img/r_external.png" alt="GRASS GIS and external file linking" class="stretch">
-    <p>by Markus Metz</p>
-    <p>Great for workflows when only portion of the data is processed in GRASS GIS.</p>
-</section>
--->
-
-
-<section>
-    <h2>Fast LiDAR data import with PDAL</h2>
-    <ul>
-        <li>both vector and raster data can be generated from point clouds</li>
-        <li>import of any point dimension (including user defined ones e.g. from PDAL filters)</li>
-        <li>support of 19 binning methods (including eigenvalues)</li>
-        <li>point filtering by values in any dimension</li>
-    </ul>
-    <img src="img/scan_angle.png" alt="GRASS GIS and LiDAR 1" width="47%"><img src="img/elevation.png" alt="GRASS GIS and LiDAR 2" width="50%">
-    <p>by Vaclav Petras and Māris Nartišs</p>
-</section>
-
-
-<section>
-    <h1>More parallelization<br>in GRASS GIS 8</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-
-<section>
-    <h2>OpenMP parallelization</h2>
-    <div class="container">
-        <div class="col">
-            <ul>
-                <li>r.mfilter</li>
-                <li>r.neighbors</li>
-                <li>r.patch</li>
-                <li>r.resamp.filter</li>
-                <li>r.resamp.interp</li>
-                <li>r.series</li>
-                <li>r.slope.aspect</li>
-                <li>r.univar</li>
-            </ul>
-            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ benchmarking library</p>
-        </div>
-        <div class="col">
-            <img src="img/gsoc/openmp.png" alt="GRASS GIS and openMP" width="90%">
-        </div>
-    </div>
-    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
-    <aside class="notes">
-        <ul>
-            <li>Parallelization of multiple, often used raster modules, with benchmarks.</li>
-            <li>Especially useful for big data processing</li>
-            <li>Supported on all platforms, provided GRASS is compiled with OpenMP</li>
-        </ul>
-    </aside>
-</section>
-
-
-<!-- other variant
-<section>
-    <h2>New core modules using OpenMP parallelization</h2>
-    <ul>
-        <li>r.series: cell value is a function of the corresponding cells in the input maps</li>
-        <li>r.neighbors: cell value is a function of the cells around it</li>
-        <li>r.mfilter: cell value is a function of the cells around it</li>
-        <li>r.slope.aspect: slope, aspect, and other derivatives of an elevation raster</li>
-        <li>r.patch: mosaic multiple rasters into one</li>
-    </ul>
-    <p>
-        <img src="img/r_series_average_explanation.png" alt="GRASS GIS and r.series openMP benchmarking 2" style="height: 7ex">
-    </p>
-    <p>by Aaron Saw Min Sern</p>
-</section>
--->
-
-<!-- too much for FOSSGIS 2025
-<section>
-    <h2>Speed Improvements: Multi-threading with OpenMP</h2>
-    <ul>
-        <li>More tasks done in parallel in the same tool</li>
-        <li><code>nprocs</code> specifies number of cores (processes, threads)</li>
-        <li><code>memory</code> specifies RAM in MB</li>
-        <li><em>Performance</em> section in documentation describes the behavior</li>
-    </ul>
-    <img src="img/openmp_r_series_section.png" alt="GRASS GIS and r.series openMP benchmarking" class="stretch">
-    <p>by Aaron Saw Min Sern and Anna Petrasova</p>
-</section>
-
-<section>
-    <h2>More parallelized tools</h2>
-    <ul>
-        <li>
-            Core tools:
-            <small>
-            r.sun, v.surf.rst, r.sim.sediment, r.sim.water
-            </small>
-        </li>
-        <li>
-            Addons tools:
-            <small>
-            r.sun.daily, r.in.usgs,
-            r.mapcalc.tiled, t.rast.what.aggr,
-            r.connectivity.corridors, r.viewshed.exposure,
-            and <b>14</b> more
-            </small>
-        </li>
-        <li>
-            Parallelizing custom Python scripts:
-            <ul>
-                <li>GridModule <small>(by tile)</small></li>
-                <li>multiprocessing, ParallelModuleQueue <small>(by task)</small></li>
-            </ul>
-        </li>
-    </ul>
-    <img src="img/piemonte_shaded_elevation.png" alt="GRASS GIS and Piemonte shaded elevation" class="stretch">
-</section>
--->
-
-
-<!-- too much for FOSSGIS 2025
-
-<section>
-    <h2>Scientific Foundations</h2>
-    <ul>
-        <li>references to related scientific papers since its inception</li>
-        <li>references to papers associated with tools or libraries</li>
-        <li>tools used in open science</li>
-    </ul>
-    <br>
-    <img src="img/module_references.png" alt="GRASS GIS and module references" class="stretch">
-    <br>
-    See: <a href="https://scholar.google.com/citations?user=gJ0ZB0cAAAAJ">GRASS GIS profile at Google scholar</a>
-</section>
-
-<section>
-    <h2>Innovation with stability</h2>
-    <ul>
-        <li>Graphical user interface changes as needed.</li>
-        <li>Python API added in v6, extended in v7.</li>
-        <li>Basic things continue to work in the same way.</li>
-    </ul>
-    <br><br>
-    <p><em>Raster algebra expression from 2002 (v5) in 2021 (v8):</em></p>
-    <p>
-    <code>
-        depressions<em style="background-color: #f84040;"> </em>=<em style="background-color: #f84040;"> </em>
-        if((elevation - fill) &lt; 0, 1, 0)
-    </code>
-    </p>
-</section>
-
-<section>
-    <h2>Support</h2>
-    <ul>
-        <li>Community support
-            <ul>
-                <li><a href="https://lists.osgeo.org/mailman/listinfo/grass-user">user mailing list</a> <small>(with vast archives since 1991)</small>
-                <li><a href="https://gis.stackexchange.com/questions/tagged/grass">GIS StackExchange</a>
-                <li><a href="https://github.com/OSGeo/grass/discussions">Discussions</a> on GitHub</li>
-                <li>&hellip;
-            </ul>
-        <li>Commercial support
-        <ul>
-            <li><a href="https://www.mundialis.de/en/open-source-gis/">mundialis</a>
-            <li><a href="https://www.northrivergeographic.com/">North River Geographic Systems</a>
-            <li><a href="https://geospatial.ncsu.edu/engage/service-center/">Center for Geospatial Analytics, NC State University</a>
-            <li>&hellip;
-        </ul>
-    </ul>
-    <br>
-    <img src="img/grass_gis.svg" alt="GRASS GIS logo" class="stretch">
-</section>
-
--->
-
-
-<section>
-    <h1>A better GUI experience<br>in GRASS GIS 8</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-<!-- nice but too much for FOSSGIS 2025
-
-<section>
-    <h2>Improved First-time User Experience</h2>
-    <div style="position:relative; width:640px; height:580px; margin:0 auto;">
-        <img class="fragment fade-out" data-fragment-index="0" width="640" height="580" src="img/grass78_startup.png" alt="Old start of GRASS GIS 7" style="position:absolute;top:0;left:0;">
-        <img class="fragment fade-in" data-fragment-index="0" width="640" height="580" src="img/grass78_startup_gone.png" alt="Old start of GRASS GIS 7 no more" style="position:absolute;top:0;left:0;">
-    </div>
-</section>
-
-<section>
-    <h2>Improved First-time User Experience</h2>
-    Initial project sets up automatically. Guidance provided for next steps.
-    <br>
-    <img class="stretch" src="img/first-time_user_world.png" alt="GRASS GIS 8 welcome">
-    <p>
-        by Linda Kladivova &amp;
-        rest of the community (many reviews, calls, user surveys, &hellip;)
-    </p>
-</section>
--->
-
-
-<section>
-    <h2>Single-Window GUI</h2>
-    <p>Single GUI window with optimized layout and dockable widgets</p>
-    <img src="img/gsoc/proposal3.png" alt="GRASS GIS and single window GUI" class="stretch">
-    <p>by Linda Kladivova</p>
-</section>
-
-
-<section>
-    <h2>Centralized Data Management</h2>
-    All data manipulation centered around revamped <em>Data</em> tab.
-    <br>
-    <img src="img/data_catalog_isolines.png" alt="GRASS GIS and isolines" class="stretch">
-    <p>by Linda Kladivova, Anna Petrasova, Vaclav Petras
-</section>
-
-<!-- too much for FOSSGIS 2025
-
-<section>
-    <h2>Dark Theme Support</h2>
-    Interface respects system dark theme.
-    <br>
-    <img src="img/dark_theme_v_clip.png" alt="GRASS GIS and dark theme" class="stretch">
-    <p>by Anna Petrasova, Nicklas Larsson
-</section>
--->
-
-
-<section>
-    <h1>Code quality and automated releases</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-
-<section>
-    <h2>Improved and robust code quality checks: GitHub Actions</h2>
-    <ul>
-        <li>Python code: formatted by Black and checked against Flake8.</li>
-        <li>C code: most of warnings removed and now checked.</li>
-        <li>All code tested with CodeQL.</li>
-        <li>Addons also checked with Flake8 and Black.</li>
-    </ul>
-    <img src="img/code_in_vscodium.png" alt="GRASS GIS and code editing in VS Codium" class="stretch">
-    <p>by Nicklas Larsson, Vaclav Petras, Anna Petrasova, Edouard Choinière, others</p>
-</section>
-
-
-<section>
-    <h2>Automated releases from GitHub</h2>
-    <br>
-    <h3>Turning git commit entries into a release page</h3>
-    <ul>
-        <li>log message parsing, categorization for the subsection</li>
-        <li>publishing of source code and auto-generated <a href="https://github.com/OSGeo/grass/releases">release notes</a></li>
-    </ul>
-    <img src="img/github_grass_releases.png" alt="GRASS GIS and automated software releases" class="stretch">
-    <p>by Vaclav Petras (procedure support by Markus Neteler)</p>
-</section>
-
-<!-- too much for FOSSGIS 2025
-
-
-<section>
-    <h2>Tap directly into FAIR data warehouses</h2>
-    <h4>GRASS GIS understands netCDF data that follows the CF-convention</h4>
-    <div class="container_flex">
-        <div class="column">
-            <small>
-                <ul>
-                    <li><a href="https://grass.osgeo.org/grass-stable/manuals/addons/m.crawl.thredds.html">m.crawl.thredds</a>: Lists URLs for netCDF datasets on Thredds servers</li>
-                    <li><a href="https://grass.osgeo.org/grass-stable/manuals/addons/t.rast.import.netcdf.html">t.rast.import.netcdf</a>: Makes Spatio-temporal data in netCDF format directly available for analysis in GRASS STRDS (also without downloading)</li>
-                </ul>
-            </small>
-        </div>
-        <div class="column">
-            <img src="img/netcdf_screenshot.jpg" alt="GRASS GIS and netCDF registration" width=100%>
-        </div>
-    </div>
-    <br>
-    <p>
-        <small>
-            Enjoy data delivered right into your GRASS GIS database from e.g.:
-        </small>
-        <img src="img/netcdf_sources.png" alt="GRASS GIS and netCDF registration 2" width=100% class="stretch">
-    </p>
-    <p><small>
-        by Stefan&nbsp;Blumentrath (Norwegian Institute for Nature Research - NINA)
-    </small></p>
-</section>
-
-
-<section id="GRASS for Remote Sensing">
-
-<section>
-    <h1>GRASS loves Remote Sensing</h1>
-    <br>
-    <img src="img/grass_image_flyer.png" alt="GRASS GIS and image processing" class="stretch">
-</section>
-
-<section>
-    <h2>Dedicated tools for image processing and analysis</h2>
-    <div class="columns">
-        <div class="column" style="width:49%">
-            <ul>
-                <li>50+ core modules</li>
-            </ul>
-            <img src="img/imagery_core_modules.png" alt="GRASS GIS and imagery modules" width="90%">
-        </div>
-        <div class="column" style="width:49%">
-            <ul>
-                <li>60+ addons, e.g., OBIA chain</li>
-            </ul>
-            <img width="90%" src="https://camo.githubusercontent.com/300a0e87e3ca6b170e8d48e681819e04dafc595c8df3e1caa01aeaaa9bb6d9b8/687474703a2f2f7777772e6d6470692e636f6d2f72656d6f746573656e73696e672f72656d6f746573656e73696e672d30392d30303335382f61727469636c655f6465706c6f792f68746d6c2f696d616765732f72656d6f746573656e73696e672d30392d30303335382d61672e706e67">
-        </div>
-    </div>
-</section>
-
-<section>
-    <h2>Sentinel, MODIS, Landsat, NED, NAIP</h2>
-    <p>
-        Automated download and import of common datasets
-        <small>i.sentinel, i.modis, i.landsat, r.in.usgs, r.in.nasadem, &hellip;</small>
-    </p>
-    <img src="img/usgs_ned_naip_3d.png" alt="GRASS GIS and NED NAIP in 3D" class="stretch">
-    <p>
-        <small>
-            by
-            Luca&nbsp;Delucchi (Fondazione Edmund Mach),
-            Martin Landa (OpenGeoLabs),
-            Anika&nbsp;Weinmann (mundialis),
-            Guido&nbsp;Riembauer (mundialis),
-            Roberta&nbsp;Fagandini (GSoC),
-            Zechariah&nbsp;Krautwurst (GSoC),
-            Anna&nbsp;Petrasova (NC&nbsp;State University),
-            Vaclav&nbsp;Petras (NC&nbsp;State University),
-            Veronica&nbsp;Andreo (CONICET), &hellip;
-        </small>
-    </p>
-</section>
-
-<section>
-    <h2>GRASS Sentinel Addons</h2>
-    <br>
-    <p>
-    <h4>Access & Downloading &rarr; Importing &rarr; Preprocessing &rarr; Analysis </h4>
-    <br>
-    <img src="img/example_s2_imagery.png" alt="GRASS GIS and Sentinel-2 scene" class="stretch">
-    <p><font size="1">Contains modified Copernicus Sentinel data (2021)</font></p>
-</section>
-
-<section>
-    <h2>Access & Downloading</h2>
-    <ul>
-        <li><b><em>i.sentinel.coverage</li>
-        <li>i.sentinel.download</b></em>
-            <ul>
-                <li>ESA Copernicus Open Access Hub</li>
-                <li>USGS Earth Explorer</li>
-                <li>Google Cloud Storage</li>
-            </ul>
-    </ul>
-    <br>
-    <img src="img/s2_search_and_download.gif" alt="GRASS GIS and Sentinel-2 download" class="stretch">
-</section>
-
-<section>
-    <h2>Importing</h2>
-    <ul>
-        <li><b><em>i.sentinel.import</b></em>
-            <ul>
-                <li>selection of individual bands</li>
-                <li>import of metadata, band reference, cloud masks</li>
-            </ul>
-        <li><b><em>t.sentinel.import</b></em></li>
-        <li><b><em>r.s1.grd.import</li></b></em>
-    </ul>
-    <br>
-    <img src="img/s2_in_grass.png" alt="GRASS GIS and Sentinel-2" class="stretch">
-</section>
-
-<section>
-    <h2>Importing</h2>
-    <ul>
-        <li>Importing into a space-time raster dataset with <b><em>t.sentinel.import</b></em>
-    </ul>
-    <br>
-    <img src="img/s2_importing_strds.gif" alt="GRASS GIS and S2 time series import" class="stretch">
-</section>
-
-<section>
-    <h2>Preprocessing</h2>
-    <ul>
-        <b><em><li>i.sentinel.mask</li>
-        <li>t.sentinel.mask</li>
-        <li>i.sentinel.preproc</li>
-        <li>i.sentinel-2.sen2cor</li>
-        <li>t.rast.mosaic</li>
-        <li>i.sar.speckle</li></b></em>
-    </ul>
-</section>
-
-<section>
-    <h2>Preprocessing: cloud masking with <b><em>i.sentinel.mask</b></em></h2>
-    <br>
-    <img src="img/cloudmasking.png" alt="GRASS GIS and S2 cloud masking" class="stretch">
-</section>
-
-<section>
-    <h2>Preprocessing: temporal mosaicking with <b><em>t.rast.mosaic</b></em></h2>
-    <br>
-    <img src="img/trastmosaic.png" alt="GRASS GIS and S2 temporal mosaicking" class="stretch">
-</section>
-
-<section>
-    <h2>Preprocessing: Sentinel-1 data</h2>
-    <ul>
-        <li><b><em>r.s1.grd.import</b></em>
-            <ul>
-                <li>requires ESA's SNAP software</li>
-                <li>complete SAR preprocessing chain</li>
-            </ul>
-    </ul>
-    <br>
-    <img src="img/s1_in_grass.png" alt="GRASS GIS and Sentinel-1 processing" class="stretch">
-</section>
-
-</section>
-<!-- end: GRASS for Remote Sensing -->
-
-<section>
-    <h1>GRASS is ready for the cloud</h1>
-    <img src="img/grass_in_the_clouds.png" alt="GRASS GIS and cloud processing" width="50%">
-</section>
-
-<section>
-    <h2>GRASS in docker containers</h2>
-    <br>
-    <ul>
-        <li>Different image flavors: Alpine, Debian, Ubuntu</li>
-        <li>Built and updated automatically</li>
-        <li>Can be deployed anywhere you need them</li>
-    </ul>
-    <img src="img/grass_docker.png" alt="GRASS GIS and docker images" class="stretch">
-    <p>See <a href="https://grass.osgeo.org/download/docker/">https://grass.osgeo.org/download/docker/</a></p>
-</section>
-
-<section>
-    <h2>GRASS GIS cloud support: REST-API with actinia</h2>
-    <ul>
-        <li><a href="https://actinia.mundialis.de/">actinia</a> (OSGeo community project)</li>
-        <li><a href="https://github.com/tomorrownow">OpenPlains</a> (simulation extensions; Django)</li>
-    </ul>
-    <br>
-    <img src="img/actinia_logo.svg" class="stretch">
-</section>
-
-<section>
-    <h2><a href="https://actinia.mundialis.de/"><strong>actinia</strong></a>: The GRASS GIS REST API</h2>
-    <ul>
-        <img src="img/actinia.png" alt="actinia logo" width="80px" style="float:right;pad-right:15px;">
-        <li>Open source REST API for scalable, distributed, high performance geodata processing using GRASS GIS and GDAL</li>
-        <li>More details in this <a href="https://mundialis.github.io/foss4g2022/">FOSS4G presentation</a></li>
-      <!--  <li>Wanna try? Follow this <a href="https://neteler.gitlab.io/actinia-introduction/">tutorial</a> for a demo user</li> -->
-        <li>Available on <i class="fa fa-github"></i>: <a href="https://github.com/actinia-org/actinia-core">https://github.com/actinia-org/actinia-core</a></li>
-    </ul>
-    <img src="img/ace_actinia_in_grass_session.jpg" alt="GRASS GIS and actinia session" class="stretch">
-    <small>by Carmen Tawalika, Anika Weinmann, Markus Neteler, Sören Gebbert, &hellip;</small>
-</section>
-
-<section>
-    <h2>actinia meets leafmap</h2>
-    <ul>
-        <img src="img/leafmap_logo.png" alt="leafmap logo" width="70px" style="float:right;pad-right:15px;">
-        Jupyter notebook: <br>
-        compute in actinia, visualize in <a href="https://leafmap.org/">leafmap</a>
-    </ul>
-    <img src="img/actinia_leafmap.jpg" alt="actinia - leafmap" class="stretch"><br>
-    <small>by Qiusheng Wu, Markus Neteler, &hellip;</small>
-</section>
-
-<!-- too much
-<section>
-    <h1>Get involved! Your contribution is welcome!</h1>
-    <img src="img/bonn_osgeo_code_sprint_2018_fotowall.jpg" alt="GRASS GIS and Bonn fotowall" class="stretch">
-</section>
-
-<section>
-    <h2>Code contributions</h2>
-    <br>
-    <h3>GRASS GIS development is GitHub-centered: core, addons, website</h3>
-    <ul>
-        <li>File bug reports or feature requests</li>
-        <li>All issues and PR's are publicly visible</li>
-        <li>Ask, comment, suggest also in Github <a href="https://github.com/OSGeo/grass/discussions">Discussions</a></li>
-        <li><em>"Fork me on <a href="https://github.com/OSGeo/grass">GitHub</a>"</em> and suggest changes or fix bugs via pull requests</li>
-        <li>Create your own addon! See this nice workshop for a guideline:
-            <a href="https://github.com/wenzeslaus/python-grass-addon">How to write a Python tool for GRASS</a>
-        </li>
-    </ul>
-    <img src="img/octocat.png" alt="GitHub logo" class="stretch">
-</section>
-
-<section>
-    <h2>Getting involved in a working group</h2>
-    <ul>
-        <li>
-            New working groups:
-            <ul>
-                <li>Geoprocessing engine</li>
-                <li>Be good neighbors in the open source ecosystem</li>
-                <li>Documentation</li>
-                <li>Engaging and fostering the community</li>
-            </ul>
-        </li>
-        <li>See <a href="https://grasswiki.osgeo.org/wiki/Working_Groups">wiki</a> for details!</li>
-    </ul>
-    <img src="img/community_prague_2023_discussion.jpg" class="stretch">
-</section>
-
-<section>
-    <h2>Other contributions are relevant too!</h2>
-    <ul>
-        <li>Translations: we use <a href="https://weblate.osgeo.org/projects/grass-gis/">OSGeo Weblate</a></li>
-        <li>Documentation: start by fixing typos in manual pages, add examples where missing, create cool screenshots, write tutorials in the <a href="https://grasswiki.osgeo.org/wiki/GRASS-Wiki">wiki</a>, etc.</li>
-        <li>Contribute material for our social media
-            <a href="https://twitter.com/GRASSGIS"><i class="fa fa-twitter"></i></a>
-            <a href="https://fosstodon.org/@grassgis"><img src="img/fa-brands-icon-mastodon.png" alt="mastodon" style="vertical-align: bottom;"></a>
-            <a href="https://www.facebook.com/groups/GRASS"><i class="fa fa-facebook"></i></a>
-            <a href="https://www.linkedin.com/groups/2718015/"><i class="fa fa-linkedin"></i></a></li>
-        <li>Write a blog post for our website</li>
-        <li>Bring your own ideas!</li>
-    </ul>
-</section>
--->
-
-<section>
-    <h1>And what about the money?</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-
-<section>
-    <h2>NSF-Grant "POSE" grant</h2>
-
-    <p><a href="https://grass.osgeo.org/news/2023_09_06_nsf_grant_awarded/">NSF grant</a> awarded to NC State, ASU, NMSU and Yale (USA)</p>
-    <ul>
-        <li>to improve the project infrastructure</li>
-        <li>to revise guidelines for contributions</li>
-        <li>to support for community building</li>
-    </ul>
-    <p><small>Note: The NSF program is aimed at sustainability, not adding features,<br>fixing bugs, or replacing other funding sources.</small></p>
-    <img src="img/nsf_grant_announcement.png" class="stretch">
-</section>
-
-
-<section>
-    <h2>Student grants program: coding for money!</h2>
-    <br>
-    <ul>
-        <li>GRASS GIS offers a limited number of student grants.</li>
-        <li>These can include actual coding, bug fixing, or documentation
-            and the creation of educational resources.</li>
-    </ul>
-    <img src="img/grass_student_grants.png" alt="GRASS GIS student grants" class="stretch">
-    <p><a href="https://grasswiki.osgeo.org/wiki/Student_Grants">https://grasswiki.osgeo.org/wiki/Student_Grants</a></p>
-</section>
-
-
-<section>
-    <h2>Sponsoring: why needed?</h2>
-    <div class="columns">
-        <div class="column" style="width:63%">
-            <br>
-            <ul>
-                <li>Money donations are very important for GRASS GIS development. They allow us to:</li>
-                <ul>
-                    <li>organize <b>face-to-face coding sessions</b> (sprints)</li>
-                    <li>finance <b>infrastructure</b> needs (web site, etc)</li>
-                    <li><b>pay developers</b> to implement new features and fix specific important bugs (<b>grants</b>)</li>
-                </ul>
-            </ul>
-        </div>
-        <div class="column" style="width:35%">
-            <img src="https://grass.osgeo.org/images/other/Grass_osgeo_codesprint_2018.jpg" alt="GRASS GIS and Bonn code sprint">
-        </div>
-    </div>
-</section>
-
-
-<section>
-    <h2>Crowd funding via OpenCollective</h2>
-    <blockquote>
-        <br>
-        "One of the greatest benefits of GRASS GIS is that its
-        environments gives us a plethora of options for manipulating data and
-        testing/designing our automation/workflow processes."
-        <br><br>
-    </blockquote>
-    <ul>
-        <li><b>Donation</b>: one-time, any amount</li>
-        <li><b>Supporter</b> level: from 10 USD/month</li>
-        <li><b>Sponsor</b> level: from 500 USD/year</li>
-    </ul>
-    <br>
-    <img src="img/open_collective_qr.png" style="width:30%"><br>
-    <small>(<a href="https://opencollective.com/grass/contribute">https://opencollective.com/grass/contribute</a>)</small>
-  <!--  <img src="img/opencollective_page.png" alt="GRASS GIS and openCollective donations" width="35%" style="float:right"> -->
-</section>
 
 <section>
-    <h1>The Road Ahead</h1>
-    <ul>
-        <li>Machine learning and AI:<br>
-            further integration with Deep Learning tools on the way</li>
-        <li>Integration into data science pipelines</li>
-        <li>Improve sustainability</li>
-        <li>See our <a href="https://grass.osgeo.org/about/roadmap/">roadmap</a></li>
-    </ul>
-    <p><br></p>
+    <h2>Neue Dokumentation: Markdown statt HTML</h2>
     <p></p>
-    <p>Upcoming: <a href="https://grasswiki.osgeo.org/wiki/GRASS_Developer_Summit_Raleigh_2025">GRASS Developer Summit Raleigh 2025</a><br>
-    19-24 May 2025 in Raleigh (NC), USA</p>
-</section>
-
-<section>
-    <h1>Thanks for your attention!</h1>
-    <p><a href="https://grass.osgeo.org/">https://grass.osgeo.org/</a></p>
-    <img src="img/grass_license.png" alt="GRASS GIS logo" class="stretch">
-    <p></p>
-    <p><small>
-        Slides: <a href="https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/fossgis2024.html#/">github.com/neteler/grass-gis-talks-markus</a>
-        <br>
-        Fediverse: <a href="https://mastodon.social/@neteler"><i class="fab fa-mastodon"></i>@neteler</a> | 
-        <a href="https://fosstodon.org/@grassgis"><i class="fa fa-mastodon"></i>@grassgis</a>
-    </small></p>
-</section>
-
-
-
-<!--- ############ Bonus material ############ -->
-
-<section>
-    <h1>Bonus material</h1>
-    <i class="fa fa-rocket fa-4x"></i>
-</section>
-
-<section>
-    <h2>Addon: Spatial Query of Projections</h2>
-    <em>g.projpicker</em> queries projections spatially using user-drawn geometries and set-theoretic logical operators.
-    It requires <a href="https://projpicker.readthedocs.io/">ProjPicker</a>.
-    <br>
-    <img src="img/g_projpicker_gui.png" alt="GRASS GIS projection picker GUI" class="stretch">
-    <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/g.projpicker.html">addon</a>
-        by Huidae Cho</p>
-</section>
-
-<section>
-    <h2>Addon: Creating a Gabor filter bank</h2>
-    <em>i.gabor</em> creates directional filters for image segmentation using i.segment. It requires NumPy and SciPy.
-    <br>
-    <img src="img/i_gabor_imaginary.png" alt="GRASS GIS and Gabor filter 1" width="45%">
-    <img src="img/i_gabor_segment.png" alt="GRASS GIS and Gabor filter 2" width="45%">
-    <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/i.gabor.html">addon</a>
-        by Owen Smith</p>
+    <img src="img/markdown_manual.png" class="stretch">
+    <p><small>Leitung: NC State Center for Geospatial Analytics</small></p>
 </section>
 
 
 <section>
-    <h2>Addon: Hydrologic Parameters Using a Flow Direction Raster</h2>
-    <em>r.accumulate</em> calculates weighted flow accumulation, subwatersheds, stream networks, and longest flow paths using a flow direction map.
-    <br>
-    <img src="img/r_accumulate_nc_lfp_example_subwatersheds.png" alt="GRASS GIS and flow accumulation" class="stretch">
-    <p>by Huidae Cho</p>
+    <h2>Neue Portal mit Tutorials</h2>
+    <p>Frisch online: <a href="https://grass-tutorials.osgeo.org">grass-tutorials.osgeo.org</a></p>
+    <img src="img/grass-tutorials.png" class="stretch">
+    <p><small>Leitung: NC State Center for Geospatial Analytics</small></p>
 </section>
 
 
 <section>
-    <h2>Addon: Ecological applications</h2>
-    <p><em>r.suitability.regions</em> allows to identify suitable regions, e.g., for endangered species, starting from suitability maps.</p>
-    <img src="img/r_suitability_suit002.png" alt="GRASS GIS and eco-suitability" class="stretch">
-    <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.suitability.regions.html">addon</a>
-        by Paulo van Breugel</p>
-</section>
+    <h2>Over to you!</h2>
 
+    <p>GRASS GIS bleibt eines der leistungsfähigsten<br>
+       Open-Source-GIS-Tools für räumliche Analysen</p>
 
-<section>
-    <h2>More data: Sentinel, THREDDS, &hellip;, netCDF, CSV</h2>
-    <p>
-        Automated download and import of common datasets
-        <small>
-            i.sentinel, i.modis, i.landsat, r.in.usgs, r.in.nasadem, m.crawl.thredds, t.rast.import.netcdf, &hellip;
-        </small>
-    </p>
-    <img src="img/usgs_ned_naip_3d.png" alt="GRASS GIS and NAIP 3D" class="stretch">
-    <p>
-        <small>
-            by
-            Fondazione Edmund Mach,
-            OpenGeoLabs,
-            mundialis,
-            GSoC,
-            NC&nbsp;State University,
-            CONICET,
-            Norwegian Institute for Nature Research,
-            <!--
-            Luca&nbsp;Delucchi (Fondazione Edmund Mach),
-            Martin Landa (OpenGeoLabs),
-            Anika&nbsp;Weinmann (mundialis),
-            Guido&nbsp;Riembauer (mundialis),
-            Roberta&nbsp;Fagandini (GSoC),
-            Zechariah&nbsp;Krautwurst (GSoC),
-            Anna&nbsp;Petrasova (NC&nbsp;State University),
-            Vaclav&nbsp;Petras (NC&nbsp;State University),
-            Veronica&nbsp;Andreo (CONICET),
-            Stefan&nbsp;Blumentrath (Norwegian Institute for Nature Research - NINA)
-            -->
-            &hellip;
-        </small>
-    </p>
-</section>
-
-<section>
-    <h2>Addon: Weighted layers for dasymetric mapping</h2>
-    <p><em>r.area.createweight</em> creates a weighting layer for dasymetric mapping using a random forest regression model.</p>
-    <img src="img/r.area.createweight_out.png" alt="GRASS GIS and dasymetric mapping" class="stretch">
-    <p>by Charlotte Flasse, Tais Grippa and Safa Fennia. <a href="https://doi.org/10.5194/isprs-archives-XLVI-4-W2-2021-55-2021">DOI.</a></p>
-</section>
-
-
-<section>
-    <h2>Addon: Can you see that landslide??</h2>
-    <p><em>r.survey</em> allows to assess whether objects of certain size could be detected by an observer moving along roads or sitting on a flying object</p>
-    <img src="img/r_survey.jpg" alt="GRASS GIS and r.survey" class="stretch">
-    <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.survey.html">addon</a>
-        by Ivan Marchesini</p>
-</section>
-
-
-<section>
-    <h2>Addon: Visual Exposure to a Defined Source</h2>
-    <em>r.viewshed.exposure</em> - Weighted cumulative viewshed analysis defining visual exposure to a source
-    <br>
-    <img src="img/r_viewshed_exposure.png" alt="GRASS GIS and viewshed exposure" class="stretch">
-    <p><a href="https://grass.osgeo.org/grass-stable/manuals/addons/r.viewshed.exposure.html">addon</a>
-        by Zofie Cimburova and Stefan Blumentrath</p>
-</section>
-
-<section>
-    <h2>GRASS GIS for remote sensing analysis</h2>
-    <br>
-    <img src="img/lst_reconstruction.png" alt="GRASS GIS and land surface temperature gap-filling" class="stretch">
-    <p><small>Daily LST space-time reconstruction done with GRASS GIS - <a href="https://www.mdpi.com/2072-4292/9/12/1333/htm">Metz et al. 2017.</a></small></p>
-</section>
-
-<section>
-    <h2>Germany land-cover mapping based on Sentinel-2 data</h2>
-    <h6>GRASS GIS modules in use (excerpt):</h6>
     <ul>
-        <b><em><font size="3">
-            <li>i.vi, t.rast.series</li>
-            <li>r.learn.ml2, r.change.info</li>
-            </font></em></b>
+    <li>Unsere Community wächst und wird jünger</li>
+    <li>Ein Meilenstein für 2025: <a href="https://grass.osgeo.org/news/2024_08_02_report_community_meeting_prague_2024/">GRASS Developer Summit im Mai in North Carolina</a>, vollständig finanziert durch einen NSF-Grant</li>
+    <li>Probiert GRASS aus oder holt euch das neue Update</li>
     </ul>
-    <br>
-    <img src="img/incora_germany_2019_incl_subset.png" alt="GRASS GIS and LULC classification" class="stretch"><br>
-    <small>For details, follow <a href="https://www.mundialis.de/en/deutschland-2020-landbedeckung-auf-basis-von-sentinel-2-daten/">this</a> blog post.</small>
+    <img src="img/NCSU_developer_summit_venue_2025_collage.jpg" class="stretch">
+    <p>Vielen Dank!</p>
 </section>
-
-
-<section>
-    <h2>Forest monitoring in the Tropics</h2>
-    <h6>GRASS GIS modules in use (excerpt):</h6>
-    <ul>
-        <b><em><font size="3">
-            <li>r.mapcalc, r.texture</li>
-            <li>r.resamp.interp, r.learn.ml2</li>
-            </font></em></b>
-    </ul>
-    <br>
-    <img src="img/hermosa1.png" alt="Hermosa 1" width="49%"> <img src="img/hermosa2.png" alt="Hermosa 2" width="46%">
-    <small>Register and try the HERMOSA demo at <a href="https://hermosa.mundialis.de/">https://hermosa.mundialis.de/</a></small>
-</section>
-
-<section>
-    <h2>Example: Flood Mapping in Ecuador based on Sentinel-1 data</h2>
-    <h6>GRASS modules in use (excerpt):</h6>
-    <ul>
-        <b><em><font size="3">
-            <li>r.mapcalc, i.segment</li>
-            <li>t.rast.algebra, t.rast.series</li>
-            </font></em></b>
-    </ul>
-    <br>
-    <img src="img/s1_flood_example.jpg" alt="GRASS GIS and S1 flood example" width="50%"><img src="img/s1_flood_frequency.jpg" alt="GRASS GIS and S1 flood frequency" width="50%">
-    <small>For details, follow <a href="https://www.mundialis.de/en/sendai-flood-mapping-in-ecuador-based-on-sentinel-1-data/">this</a> blog post.</small>
-</section>
-
-<section>
-    <h2>Time series support</h2>
-    <div class="r-stack">
-        <img class="fragment" src="img/tgrass_flowchart.png" width="70%">
-        <img class="fragment" src="img/tplot.png" width="70%">
-        <img class="fragment" src="https://gitlab.com/veroandreo/grass-gis-conae/-/raw/master/assets/img/3month_lst_anim_small.gif" width="70%">
-    </div>
-    <p>by S&ouml;ren Gebbert, Luca Delucchi, Anna Petrasova, &hellip;</p>
-</section>
-
-<section>
-    <h2>Tangible Landscape</h2>
-    <p>Geospatial tangible user interface</p>
-    <img src="img/cli_tangible.png" alt="GRASS GIS and tangible user interface" class="stretch">
-    <p>by NC State Center for Geospatial Analytics</p>
-</section>
-
-<section>
-    <h2>FUTURES</h2>
-    <p><em>r.futures</em> - set of tools for urban growth modeling</p>
-    <p>Improved scalability, new validation modules</p>
-    <img src="img/FUTURES_addon.png" alt="GRASS GIS and FUTURES urban growth" class="stretch">
-    <p>by NC State Center for Geospatial Analytics</p>
-
-    <aside class="notes">
-        r.futures is a set of modules for urban growth modeling
-        based on historical land cover and population data.
-        New version is more scalable and includes validation modules.
-    </aside>
-</section>
-
-<section>
-    <h2>PoPS</h2>
-    <p><em>r.pops.spread</em> - Pest or Pathogen Spread simulation</p>
-    <img src="img/pops_version_1.png" alt="GRASS GIS and pathogen spread" class="stretch">
-    <p>by NC State Center for Geospatial Analytics
-</section>
-
-
-<!-- too much
-<section>
-<h2>Plenty of resources</h2>
-<ul>
-    <li>
-        <a href="https://grass.osgeo.org/learn/manuals/">Documentation</a>:
-        <ul>
-            <li>See <a href="https://grass.osgeo.org/grass-stable/manuals/graphical_index.html">full list of core tools</a>
-            <li>See <a href="https://grass.osgeo.org/grass-stable/manuals/addons">tools in Addons repository</a>
-        </ul>
-    <li>
-        <a href="https://grass.osgeo.org/learn/tutorials/">Tutorials and Courses</a>:
-        <ul>
-            <li><a href="https://grasswiki.osgeo.org/wiki/From_GRASS_GIS_novice_to_power_user_(workshop_at_FOSS4G_Boston_2017)">Introduction to GRASS GIS</a>
-            <li><a href="https://grasswiki.osgeo.org/wiki/Processing_lidar_and_UAV_point_clouds_in_GRASS_GIS_(workshop_at_FOSS4G_Boston_2017)">Processing lidar and UAV point clouds</a>
-            <li><a href="https://training.gismentors.eu/grass-gis-workshop-jena/">GRASS GIS course at Jena</a></li>
-            <li><a href="http://ncsu-geoforall-lab.github.io/grass-temporal-workshop/">Spatio-temporal data handling and visualization</a>
-        </ul>
-    <li>
-        <a href="https://grass.osgeo.org/learn/books/">Books</a>:
-        <ul>
-            <li>Open Source GIS: A GRASS GIS Approach
-            <li>Tangible Modeling with Open Source GIS
-            <li>Open Source Approaches to Spatial Data Handling
-        </ul>
-</ul>
-</section>
-
-<section>
-    <h2>Access to Source Code</h2>
-    Documentation links to the source code.
-    <img src="img/module_author_source.png" alt="GRASS GIS manual page example" class="stretch">
-    <p>by Luca Delucchi
-</section>
-
--->
 
 
 <!-- ################# END CONTENT ################# -->
