@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Stand des GRASS GIS Projekts: Neuigkeiten und Perspektiven</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="GRASS GIS is a general geospatial processing tool. The latest version comes with a single-window layout and streamlined data management addressing user feedback. GRASS’ code was recently revitalized by code quality improvements, a perfect gift for its 40th birthday!">
+        <meta name="author" content="Markus Neteler und mundialis GmbH & Co. KG">
+        <meta name="description" content="GRASS GIS talk slides at the FOSSGIS 2025 in Münster">
+        <meta name="author" content="Markus Neteler, Veronica Andreo, Vaclav Petras, Anna Petrasova">
+
+        <link rel="stylesheet" href="reveal/reset.css">
+        <link rel="stylesheet" href="reveal/reveal.css">
+        <link rel="stylesheet" href="css/theme/osgeo.css" id="theme">
+        <link rel="stylesheet" href="css/nouislider.min.css" id="slide">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="reveal/plugin/highlight/monokai.css" id="highlight-theme">
+        <!-- For chalkboard plugin -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+<!--        <link href="https://fonts.googleapis.com/css?family=Miriam+Libre" rel="stylesheet"> -->
+<style>
+/* miriam-libre-regular - latin */
+@font-face {
+  font-family: 'Miriam Libre';
+  font-style: normal;
+  font-weight: 400;
+  src: url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Miriam Libre'), local('MiriamLibre-Regular'),
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-regular.svg#MiriamLibre') format('svg'); /* Legacy iOS */
+}
+
+/* miriam-libre-700 - latin */
+@font-face {
+  font-family: 'Miriam Libre';
+  font-style: normal;
+  font-weight: 700;
+  src: url('lib/font/miriam-libre/miriam-libre-v1-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Miriam Libre Bold'), local('MiriamLibre-Bold'),
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/miriam-libre/miriam-libre-v1-latin-700.svg#MiriamLibre') format('svg'); /* Legacy iOS */
+}
+
+
+/* sintony-regular - latin */
+@font-face {
+  font-family: 'Sintony';
+  font-style: normal;
+  font-weight: 400;
+  src: url('lib/font/sintony/sintony-v4-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Sintony'),
+       url('lib/font/sintony/sintony-v4-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/sintony/sintony-v4-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/sintony/sintony-v4-latin-regular.svg#Sintony') format('svg'); /* Legacy iOS */
+}
+
+/* sintony-700 - latin */
+@font-face {
+  font-family: 'Sintony';
+  font-style: normal;
+  font-weight: 700;
+  src: url('lib/font/sintony/sintony-v4-latin-700.eot'); /* IE9 Compat Modes */
+  src: local('Sintony Bold'), local('Sintony-Bold'),
+       url('lib/font/sintony/sintony-v4-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('lib/font/sintony/sintony-v4-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-700.woff') format('woff'), /* Modern Browsers */
+       url('lib/font/sintony/sintony-v4-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('lib/font/sintony/sintony-v4-latin-700.svg#Sintony') format('svg'); /* Legacy iOS */
+}
+
+.reveal i.fa {
+    font-family:FontAwesome;
+    font-style: normal;
+}
+
+.reveal li > ul {
+    font-size: 85%;
+    line-height: 110%;
+  }
+
+.reveal small {
+  display: inline-block;
+  font-size: smaller;
+  line-height: 1.2em;
+  vertical-align: baseline;
+  margin: 0.1em; }
+
+.reveal small * {
+  vertical-align: baseline; }
+
+.reveal .credit {
+  font-size: small;
+  color: gray;
+  margin: 0.1em;
+}
+
+.reveal .right, .reveal .textimg > img, .reveal .textimg > video, .reveal .textimg > iframe, .reveal .imgtext > p, .reveal .imgtext > ul, .reveal .imgtext > ol, .reveal .imgtext > div {
+    float: right;
+    text-align: left;
+    max-width: 47%;
+}
+
+.reveal .left, .reveal .imgtext > img, .reveal .imgtext > video, .reveal .imgtext > iframe, .reveal .textimg > p, .reveal .textimg > ul, .reveal .textimg > ol, .reveal .textimg > div {
+    float: left;
+    text-align: left;
+    max-width: 47%;
+}
+</style>
+</head>
+
+<body>
+      <div class="reveal">
+      <div class="slides">
+
+<!-- ################# ABSTRACT ################# -->
+
+<!--
+Wir geben einen Überblick über die neuesten Entwicklungen im GRASS GIS Projekt mit Fokus auf die Version 8.4.0: Der Begriff "Location" ist nun einfach "Projekt", die Support-Vektor-Machine Methode zur Bildklassifikation ist in GRASS-core verfügbar und optionale JSON Ausgabe neu in verschiedenen Tools. Verbesserungen in der grafischen Benutzeroberfläche und neue Werkzeuge für Jupyter Notebooks machen GRASS GIS zugänglicher und skalierbarer für Anwendungen von der Wissenschaft bis zur Industrie.
+
+Im Vortrag geben wir einen Überblick über die Fortschritte des GRASS GIS Projekts und die Highlights der Version 8.4.0, die mit über 520 Verbesserungen und Korrekturen veröffentlicht wurde. Eine bemerkenswerte Änderung ist die Ersetzung des traditionellen (aber oft verwirrenden) Begriffs "Location" durch "Project" in der graphischen Benutzeroberfläche, bei der Kommandozeile und in der gesamten Python API, wobei die Abwärtskompatibilität gewährleistet bleibt. Dies wird die Datenhierarchie für die Benutzer:innen intuitiver machen. Die Version führt mehrere neue Werkzeuge und Verbesserungen ein, darunter eine GRASS-Kernfunktion zur Bildklassifikation mit Hilfe von Support Vector Machines (i.svm). Im Bereich der Datenverarbeitung und -ausgabe unterstützt GRASS GIS 8.4.0 nun das JSON Ausgabeformat für verschiedene Werkzeuge und führt eine neue Klasse für Jupyter Notebooks zur Animation von Vektor- oder Rasterzeitreihen ein. Zusätzlich ermöglicht die Integration von ipyleaflet eine einfachere Kartenvisualisierung in Jupyter Notebooks. Zu den Verbesserungen der Benutzeroberfläche gehören ein verbessertes Single-Window-GUI mit abdockbarer Kartenansicht und ein neues History-Browser-Panel, das die Navigation durch die Workflow-Historie vereinfacht. Ein neuer GRASS GIS Programming Style Guide erleichtert die Orientierung während der Entwicklung.
+Wir stellen die Roadmap für zukünftige GRASS GIS Versionen vor, die einen beschleunigten Releasezyklus und neue Werkzeuge beinhaltet. Insgesamt verbessern diese Neuerungen die Fähigkeiten von GRASS GIS in den Bereichen Geodatenanalyse, Datenvisualisierung und Benutzerinteraktion erheblich und demonstrieren die kontinuierliche Weiterentwicklung des Projekts, um den Bedürfnissen sowohl von Anfänger:innen als auch von erfahrenen Profis in der Geo-Community gerecht zu werden.
+
+https://pretalx.com/fossgis2025/talk/JAWZUC/
+-->
+
+<section>
+    <h1>Stand des GRASS GIS Projekts: Neuigkeiten und Perspektiven</h1>
+    <p style="margin-top: 0.5em">
+        <a href="https://www.mundialis.de/en/neteler/">Markus Neteler</a> (mundialis GmbH &amp; Co. KG)
+        <br>
+        <small>&amp; Verónica Andreo, Vaclav Petras, Anna Petrasova</small>
+    </p>
+    <center>
+    <p><small><a href="https://fossgis-konferenz.de/2025/">FOSSGIS 2025</a> - Münster</small></p>
+    <img src="img/grass_gis.svg" alt="GRASS GIS logo" style="width: 15%"> <br>
+    <img src="img/fossgis2025-logo.png" alt="FOSSGIS 2025 logo" style="width: 45%">
+    </center>
+    <p><small><a href="https://htmlpreview.github.io/?https://github.com/neteler/grass-gis-talks-markus/blob/main/fossgis_grass_LT_2025.html">github.com/neteler/grass-gis-talks-markus/</a></small></p>
+</section>
+
+<!--
+<section>
+    <h2>About the presenter&hellip;</h2>
+    <br>
+    <ul>
+        <li>Co-founder and senior consultant at mundialis, Bonn (DE)</li>
+        <img class="bio-img" src="img/markus_round.png" alt="Pic of Markus Neteler">
+        <li>PhD in Geography, Univ. of Hannover</li>
+        <li>15 years of researcher's life in Trento, Italy</li>
+        <li>Since 2016 in Bonn, Germany @ mundialis</li>
+        <li>Since 1997 active in the <a href="https://grass.osgeo.org/">GRASS GIS</a> project</li>
+        <li> Co-founder of <a href="https://www.osgeo.org/">OSGeo</a>, GFOSS.it and FOSSGIS e.V.</li>
+    </ul>
+    <p align="right" style="font-size:18px"><a href="https://www.mundialis.de/neteler/">https://www.mundialis.de/neteler/</a></p>
+</section>
+-->
+
+<section>
+    <h2>Die letzten 42 Jahre von GRASS GIS</h2>
+    <div class="columns">
+        <div class="column" style="width:95%">
+        <b>GRASS GIS</b> (Geographic Resources Analysis Support System), eine FOSS-Suite für die Verwaltung und Analyse von Geodaten, Bildverarbeitung, räumliche Modellierung und Visualisierung.<br><br>
+        Mehr als <a href="https://grass.osgeo.org/about/history/">42 Jahre kontinuierliche Entwicklung!</a>
+            </ul>
+        </div>
+<!--
+1982-1995: Start der Entwicklung durch die U.S. Army Corps of Engineers (CERL), bis 1995
+1985: Erste offizielle Version von GRASS veröffentlicht
+1995: GRASS wird unter eine Open-Source-Lizenz gestellt (vorher public domain)
+2000-2009: GRASS-Anwender-Vereinigung e.V.
+2006: Veröffentlichung von GRASS 6 mit neuer Vektortopologie
+2009-heute: FOSSGIS e.V.
+2012: Einführung von GRASS 7 mit verbesserter Performance
+2020: Veröffentlichung von GRASS 8 mit modernisierter GUI und Python-APIs
+2024: Version GRASS 8.4 mit JSON-Support, Jupyter-Integration und GUI-Verbesserungen
+2025: GRASS Developer Summit (North Carolina, finanziert durch NSF-Grant)
+-->
+
+<!-- Canva drawing: https://www.canva.com/design/DAGic0WS4vc/znpjYQBOSmNCTgEEi2GBpw/edit -->
+
+        <div class="column" style="width:109%;text-align:left;padding-top:0.5em;">
+            <img src="img/GRASS_Development_Zeitleiste_canva.png" alt="GRASS Development Zeitleiste" width="100%">
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <h1>Highlights der Version 8.4</h1>
+    <i class="fa fa-rocket fa-4x"></i>
+</section>
+
+
+<section>
+    <h2>Mehr Benutzerfreundlichkeit</h2>
+    <p>Der Begriff "Location" heißt nun einfach "Project":</p>
+    <p>für eine intuitivere Datenorganisation</p>
+    <img src="img/grass85_gui_location2project.png" class="stretch">
+</section>
+
+
+<section>
+    <h2>Neue Analysewerkzeuge:<br> mehr Machine Learning</h2>
+
+    <p>Überwachte Klassifizierung mit Support Vector Machines (SVM)
+    <ul>
+        <li><a href="https://grass.osgeo.org/grass84/manuals/i.svm.train.html">i.svm.train</a>: Eine Support Vector Machine trainieren</li>
+        <li><a href="https://grass.osgeo.org/grass84/manuals/i.svm.predict.html">i.svm.predict</a>: Vorhersage mit einer Support Vector Machine</li>
+    </ul>
+    </p>
+    <img src="img/svm_user_accuracy.png" style="width: 50%">
+    <img src="img/nartiss2023_tgis13102-fig-0004-m.jpg" style="width: 45%">
+
+    <small>by Maris Nartiss (<a href="https://doi.org/10.1111/tgis.13102">Nartiss & Melniks 2023</a>)</small>
+</section>
+
+
+<section>
+    <h2>Schnittstellen: JSON für Textausgaben</h2>
+
+In immer mehr GRASS Tools neu: <code style="font-size: 80%;">format="json"</code> Ausgabe
+
+<pre class="bash" style="font-size: 80%;"><code>
+GRASS nc_spm_08/user1:~ > v.info zipcodes_wake format=json
+</code></pre>
+<pre class="json"><code>
+{
+    "name": "zipcodes_wake",
+    "mapset": "PERMANENT",
+    "title": "Wake County zip codes (polygon map)",
+[...]
+    "areas": 48,
+    "islands": 2,
+    "primitives": 206
+}
+</code></pre>
+
+<i style="font-size: 80%;">Aktuell unterstützt in:</i>
+
+<table border="0" style="font-size: 80%;">
+  <tr>
+    <td>i.signatures</td>
+    <td>r.describe</td>
+    <td>r.info</td>
+  </tr>
+  <tr>
+    <td>r.category</td>
+    <td>r.geomorphon</td>
+    <td>r.kappa</td>
+  </tr>
+  <tr>
+    <td>r.colors.out</td>
+    <td>r.horizon</td>
+    <td>r.mask.status</td>
+  </tr>
+  <tr>
+    <td>r.object.geometry</td>
+    <td>r.profile</td>
+    <td>r.report</td>
+  </tr>
+  <tr>
+    <td>r.univar</td>
+    <td>r.what</td>
+    <td>r3.colors.out</td>
+  </tr>
+  <tr>
+    <td>r3.univar</td>
+    <td>t.rast.list</td>
+    <td>v.category</td>
+  </tr>
+  <tr>
+    <td>v.colors.out</td>
+    <td>v.db.select</td>
+    <td>v.db.univar</td>
+  </tr>
+  <tr>
+    <td>v.distance</td>
+    <td>v.info</td>
+    <td>v.univar</td>
+  </tr>
+</table>
+
+</section>
+
+<section>
+    <h2>GUI: Neues History Browser Panel</h2>
+
+    <img src="img/gui_history_panel.png" class="stretch">
+    <small>by Linda Karlovska mit einem <a href="https://grasswiki.osgeo.org/wiki/Student_Grants">GRASS Student Grant</a></small> 
+    
+    <aside class="notes">
+        Commands grouped by date, we can see their status, the region setting when they were executed, etc.
+
+        Other GUI improvements include the integration of the modeler within single window layout,
+        undockable map displays, faster rendering in d modules.
+    </aside>
+</section>
+
+
+<section>
+    <h2>Bessere Datenvisualisierung mit Jupyter</h2>
+
+    <p>&gt; <tt>grass.jupyter</tt> Python-Paket &lt;</p>
+
+    <ul>
+        <li>
+            Neue Klasse <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html#module-grass.jupyter.seriesmap"><tt>grass.jupyter.SeriesMap</tt></a>
+            zur Animation von Serien von Vektor- oder Rasterkarten
+            <small>(zeitliche Animationen bereits verfügbar)</small>
+        </li>
+    </ul>
+    <pre><code data-trim data-noescape>
+    s = gj.SeriesMap(height = 500)
+    s.add_rasters(["elevation_shade", "geology", "soils"])
+    s.add_vectors(["streams", "streets", "viewpoints"])
+    s.d_barscale()
+    s.show()
+    </code></pre>
+    <ul>
+        <li>
+            Neue Option, eine Karte mit <a href="https://grass.osgeo.org/grass-stable/manuals/libpython/grass.jupyter.html?highlight=ipyleaflet#module-grass.jupyter.interactivemap"><tt>grass.jupyter.interactivemap</tt></a> (ipyleaflet) zu erstellen
+            <small>(wird in G8.5 interaktiv sein)</small>
+        </li>
+    </ul>
+
+    <pre><code data-trim data-noescape>
+    m = InteractiveMap(map_backend="ipyleaflet")
+    m.add_vector("streams")
+    m.add_raster("elevation")
+    m.show()
+    </code></pre>
+
+    <small>
+        by Caitlin Haedrich, Riya Saxena, Anna Petrasova
+    </small>
+
+<!--
+    <img src="img/jupyter_interactive_viewshed.png" class="stretch">
+-->
+</section>
+
+
+<section>
+    <h2>Wachsende Entwicklungs-Community</h2>
+    <img src="img/grass_contributors_2019_2025.png" style="width: 77%"><br>
+    <img src="img/grass_contributors_v841_2025.png" style="width: 77%">
+    <br>
+    <small><a href="https://github.com/OSGeo/grass/">github.com/OSGeo/grass/</a></small>
+</section>
+
+
+<section>
+    <h2>Neue Dokumentation: Markdown statt HTML</h2>
+    <p></p>
+    <img src="img/markdown_manual.png" class="stretch">
+    <p><small>Leitung: NC State Center for Geospatial Analytics</small></p>
+</section>
+
+
+<section>
+    <h2>Neue Portal mit Tutorials</h2>
+    <p>Frisch online: <a href="https://grass-tutorials.osgeo.org">grass-tutorials.osgeo.org</a></p>
+    <img src="img/grass-tutorials.png" class="stretch">
+    <p><small>Leitung: NC State Center for Geospatial Analytics</small></p>
+</section>
+
+
+<section>
+    <h2>Over to you!</h2>
+
+    <p>GRASS GIS bleibt eines der leistungsfähigsten<br>
+       Open-Source-GIS-Tools für räumliche Analysen</p>
+
+    <ul>
+    <li>Unsere Community wächst und wird jünger</li>
+    <li>Ein Meilenstein für 2025: <a href="https://grass.osgeo.org/news/2024_08_02_report_community_meeting_prague_2024/">GRASS Developer Summit im Mai in North Carolina</a>, vollständig finanziert durch einen NSF-Grant</li>
+    <li>Probiert GRASS aus oder holt euch das neue Update</li>
+    </ul>
+    <img src="img/NCSU_developer_summit_venue_2025_collage.jpg" class="stretch">
+    <p>Vielen Dank!</p>
+</section>
+
+
+<!-- ################# END CONTENT ################# -->
+
+           </div>
+        </div>
+
+        <!-- reveal internal plugins -->
+        <script src="reveal/reveal.js"></script>
+        <script src="reveal/plugin/notes/notes.js"></script>
+        <script src="reveal/plugin/markdown/markdown.js"></script>
+        <script src="reveal/plugin/highlight/highlight.js"></script>
+        <script src="reveal/plugin/math/math.js"></script>
+        <!-- extra plugins -->
+        <script src="reveal_plugins/chalkboard/plugin.js"></script>
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                hash: true,
+                // Display controls in the bottom right corner
+                controls: true,
+
+                // Display a presentation progress bar
+                progress: true,
+
+                center: true,
+
+                // Display the page number of the current slide
+                slideNumber: false,
+
+                // Enable the slide overview mode
+                overview: true,
+
+                // Turns fragments on and off globally
+                fragments: true,
+
+                // The "normal" size of the presentation, aspect ratio will be preserved
+                // when the presentation is scaled to fit different resolutions. Can be
+                // specified using percentage units.
+                // width: 960,
+                // height: 700,
+
+                // Factor of the display size that should remain empty around the content
+                margin: 0.05,  // increase?
+
+                // Bounds for smallest/largest possible scale to apply to content
+                minScale: 0.5,
+                maxScale: 5.0,
+
+                // Push each slide change to the browser history
+                history: true,
+                // Enable keyboard shortcuts for navigation
+                keyboard: true,
+
+                // Vertical centering of slides
+                center: true,
+
+                // Enables touch navigation on devices with touch input
+                touch: true,
+
+                // Loop the presentation
+                loop: false,
+                // Flags if the presentation is running in an embedded mode,
+                // i.e. contained within a limited portion of the screen
+                embedded: false,
+
+                // Number of milliseconds between automatically proceeding to the
+                // next slide, disabled when set to 0, this value can be overwritten
+                // by using a data-autoslide attribute on your slides
+                autoSlide: 0,
+
+                // Stop auto-sliding after user input
+                autoSlideStoppable: true,
+
+                // Enable slide navigation via mouse wheel
+                mouseWheel: false,
+
+                // Hides the address bar on mobile devices
+                hideAddressBar: true,
+
+                // Opens links in an iframe preview overlay
+                previewLinks: false,
+
+                // Slide transition
+                transition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Transition speed
+                transitionSpeed: 'default', // default/fast/slow
+
+                // Transition style for full page slide backgrounds
+                backgroundTransition: 'none', // default/none/slide/concave/convex/zoom
+
+                // Number of slides away from the current that are visible
+                viewDistance: 3,
+
+                // Parallax background image
+                //parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+                // Parallax background size
+                //parallaxBackgroundSize: '' // CSS syntax, e.g. "2100px 900px"
+
+                chalkboard: {
+                    boardmarkerWidth: 3,
+                    chalkWidth: 7,
+                    chalkEffect: 1.0,
+                    src: null,
+                    readOnly: undefined,
+                    toggleChalkboardButton: true,
+                    toggleNotesButton: true,
+                    boardmarkers : [
+                        { color: 'rgba(220,20,60,1)', cursor: 'url(' + 'reveal_plugins/' + 'img/boardmarker-red.png), auto'},
+                        { color: 'rgba(255,140,0,1)', cursor: 'url(' + 'reveal_plugins/' + 'img/boardmarker-orange.png), auto'},
+                    ]
+                },
+
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                    // pass other options into `MathJax.Hub.Config()`
+                    TeX: { Macros: { RR: "{\\bf R}" } }
+                },
+
+                plugins: [
+                    RevealMath,
+                    RevealHighlight,
+                    RevealMarkdown,
+                    // RevealChalkboard
+                ]
+            });
+        </script>
+    </body>
+</html>
