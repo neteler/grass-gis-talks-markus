@@ -241,6 +241,30 @@ https://pretalx.com/fossgis2025/talk/JAWZUC/
 
 In immer mehr GRASS Tools neu: <code style="font-size: 80%;">format="json"</code> Ausgabe
 
+<!--
+grass --tmp-mapset ~/grassdata/nc_spm_08_grass7/ --exec r.info elevation format=json
+
+{
+    "north": 228500,
+    "south": 215000,
+    "nsres": 10,
+    "east": 645000,
+    "west": 630000,
+    "ewres": 10,
+    "rows": 1350,
+    "cols": 1500,
+    "cells": 2025000,
+    "datatype": "FCELL",
+    "ncats": 255,
+    "min": 55.578792572021484,
+    "max": 156.32986450195312,
+    "map": "elevation",
+    "maptype": "raster",
+    "mapset": "PERMANENT",
+    ...
+}
+-->
+
 <pre class="bash" style="font-size: 80%;"><code>
 GRASS nc_spm_08/user1:~ > v.info zipcodes_wake format=json
 </code></pre>
